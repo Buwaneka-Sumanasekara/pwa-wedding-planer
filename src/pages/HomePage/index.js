@@ -8,17 +8,23 @@
  * --------------------------------------------------------------
  */
 
-
-
-import React , {useState,useEffect} from 'react';
-import Button from 'react-bootstrap/Button'; 
-
+import React, { useState, useEffect } from "react";
+import { Image, Container, Row, Col } from "react-bootstrap";
+import PageTemplate from "../../components/templates/BlankTemplate";
+import "./styles.scss";
 
 const HomePage = () => {
-    return (
-        <div>  <Button variant="primary">Primary</Button></div>
-    )
-}
-
+  return (
+    <PageTemplate page_name={"home"}>
+      <Container className={" h-100"}>
+        <Row
+          className={"d-flex justify-content align-items-center vh-100 mx-auto"}
+        >
+          <Col className={"logo"}></Col>
+        </Row>
+      </Container>
+    </PageTemplate>
+  );
+};
 
 export default HomePage;

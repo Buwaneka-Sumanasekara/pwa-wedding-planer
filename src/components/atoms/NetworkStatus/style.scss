@@ -1,0 +1,15 @@
+.network-status-default {
+  background-color: #2e3038;
+  z-index: 1000;
+  position: fixed;
+  height: 40px;
+  p {
+    font-size: 13px;
+  }
+  .icon-offline {
+    color: #ff1e3a;
+  }
+  .icon-online {
+    color: #0786c1;
+  }
+}

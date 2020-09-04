@@ -1,27 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from './configureStore';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import configureStore from "./configureStore";
 
 import "./theme/assets/vendor/nucleo/css/nucleo.css";
 import "./theme/assets/vendor/font-awesome/css/font-awesome.min.css";
 import "./theme/assets/scss/argon-design-system-react.scss";
 import "./theme/custom/custom.scss";
 
+import App from "./App";
 
-import App from './App';
-
-
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore();
-
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

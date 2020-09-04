@@ -1,17 +1,10 @@
-import React from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
-
+import React from "react";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import GuestsPage from "./pages/GuestsPage";
 
-import {
-  ROUTE_HOME,
-  ROUTE_GUESTS
-} from "./constants/Routes";
-
-
-
+import { ROUTE_HOME, ROUTE_GUESTS } from "./constants/Routes";
 
 const App = () => {
   return (
@@ -24,6 +17,6 @@ const App = () => {
       </BrowserRouter>
     </React.Fragment>
   );
-}
+};
 
 export default App;
