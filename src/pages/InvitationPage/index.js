@@ -86,18 +86,16 @@ const InvitationBody = (GuestInfo) => {
         </Row>
         <Row>
           <Col>
-            <Typography Tag={"p"}>
+            <Typography Tag={"p"} className={"guest-name"}>
               <u>
                 <strong>
                   {GuestInviteMode !== InviteModes.FAMILY
-                    ? GuestInviteMode
+                    ? `${GuestInviteMode.toLowerCase()}.`
                     : ""}
                 </strong>{" "}
                 {`${GuestInfo !== null ? GuestName : ""}`}{" "}
                 <strong>
-                  {GuestInviteMode !== InviteModes.FAMILY
-                    ? GuestInviteMode
-                    : " & Family"}
+                  {GuestInviteMode !== InviteModes.FAMILY ? "" : " & Family"}
                 </strong>
               </u>
             </Typography>
@@ -110,9 +108,10 @@ const InvitationBody = (GuestInfo) => {
                 <strong>
                   {" "}
                   {`${
-                    GuestInfo.guest.tableNo !== ""
+                    GuestInfo.guest.tableNo !== "" &&
+                    GuestInfo.guest.tableNo !== 0
                       ? `Table No: ${GuestInfo.guest.tableNo}`
-                      : "-Your table no will arrange soon-"
+                      : "- Your Table-no will arrange soon -"
                   }`}{" "}
                 </strong>
               </mark>

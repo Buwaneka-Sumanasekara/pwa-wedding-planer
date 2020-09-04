@@ -35,6 +35,9 @@
           height: 50px;
           resize: horizontal;
         }
+        .guest-name strong {
+          text-transform: capitalize;
+        }
       }
     }
   }
