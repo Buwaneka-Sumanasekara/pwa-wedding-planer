@@ -8,12 +8,39 @@
  * --------------------------------------------------------------
  */
 import React, { useState, useEffect } from "react";
-import { Image, Container, Row, Col } from "react-bootstrap";
+import { Image, Container, Row, Col, Button } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 import Typography from "../../components/atoms/Typography";
+import Icon from "../../components/atoms/Icon";
 import "./styles.scss";
 
+import api from "../../../api";
+import _ from "lodash";
+
+const source = _.get(api, "invitation");
+
 const InvitationBody = () => {
+  const [isLoading, setLoading] = useState(false);
+  const _handleGetDirections = () => {
+    //https://www.google.com/maps/dir//Saminro%20Grand%20Palace,%20287%20Makola%20Rd,%20Kiribathgoda
+    window.location.href =
+      "https://www.google.com/maps/dir//Saminro%20Grand%20Palace,%20287%20Makola%20Rd,%20Kiribathgoda";
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+    if (source) {
+      source.get({ code: "QjE=" }).then((res) => {
+        setLoading(false);
+        if (res && res.data) {
+          setStoreData(res.data, true);
+          afterFetched && afterFetched(res.data);
+        }
+      });
+    }
+  }, [filters]);
+
   return (
     <div
       className={
@@ -114,6 +141,13 @@ const InvitationBody = () => {
             <Typography Tag={"small"} className={"font-smaller"}>
               {"PORUWA CEREMONEY AT 10:00 AM"}
             </Typography>
+          </Col>
+        </Row>
+        <Row className={"pt-3"}>
+          <Col>
+            <Button variant="primary" onClick={() => _handleGetDirections()}>
+              <Icon icon={"info"} /> Get Direction
+            </Button>
           </Col>
         </Row>
       </Container>
