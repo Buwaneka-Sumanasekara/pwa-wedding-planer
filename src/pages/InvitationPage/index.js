@@ -8,38 +8,40 @@
  * --------------------------------------------------------------
  */
 import React, { useState, useEffect } from "react";
-import { Image, Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import {
+  Image,
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 import Typography from "../../components/atoms/Typography";
 import Icon from "../../components/atoms/Icon";
+
+import Globals from "../../constants/Globals";
+
 import "./styles.scss";
 
-import api from "../../../api";
+import api from "../../api";
 import _ from "lodash";
 
 const source = _.get(api, "invitation");
 
-const InvitationBody = () => {
-  const [isLoading, setLoading] = useState(false);
+const InvitationBody = (GuestInfo) => {
   const _handleGetDirections = () => {
     //https://www.google.com/maps/dir//Saminro%20Grand%20Palace,%20287%20Makola%20Rd,%20Kiribathgoda
     window.location.href =
       "https://www.google.com/maps/dir//Saminro%20Grand%20Palace,%20287%20Makola%20Rd,%20Kiribathgoda";
   };
 
-  useEffect(() => {
-    setLoading(true);
+  const InviteModes = Globals.InviteMode;
 
-    if (source) {
-      source.get({ code: "QjE=" }).then((res) => {
-        setLoading(false);
-        if (res && res.data) {
-          setStoreData(res.data, true);
-          afterFetched && afterFetched(res.data);
-        }
-      });
-    }
-  }, [filters]);
+  const GuestName = GuestInfo.guest.name;
+  const GuestInviteMode = GuestInfo.guest.inviteMode;
 
   return (
     <div
@@ -85,7 +87,35 @@ const InvitationBody = () => {
         <Row>
           <Col>
             <Typography Tag={"p"}>
-              <u>{"name goes here"}</u>
+              <u>
+                <strong>
+                  {GuestInviteMode !== InviteModes.FAMILY
+                    ? GuestInviteMode
+                    : ""}
+                </strong>{" "}
+                {`${GuestInfo !== null ? GuestName : ""}`}{" "}
+                <strong>
+                  {GuestInviteMode !== InviteModes.FAMILY
+                    ? GuestInviteMode
+                    : " & Family"}
+                </strong>
+              </u>
+            </Typography>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Typography Tag={"p"} className={""}>
+              <mark>
+                <strong>
+                  {" "}
+                  {`${
+                    GuestInfo.guest.tableNo !== ""
+                      ? `Table No: ${GuestInfo.guest.tableNo}`
+                      : "-Your table no will arrange soon-"
+                  }`}{" "}
+                </strong>
+              </mark>
             </Typography>
           </Col>
         </Row>
@@ -156,14 +186,66 @@ const InvitationBody = () => {
 };
 
 const InvitationPage = () => {
+  const { code } = useParams();
+  const [isLoading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+  const [GuestInfo, setGuestInfo] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+
+    if (source) {
+      source.getSpecificInvitation({ code: code }).then((res) => {
+        console.log(res);
+        setLoading(false);
+        if (res.data["data"] !== undefined) {
+          setGuestInfo(res.data["data"]);
+        } else {
+          setNotFound(true);
+        }
+      });
+    }
+  }, []);
+
   return (
     <PageTemplate page_name={"invitation"}>
-      <div className={"background-img vh-100  d-lg-none d-xl-none"}>
-        {InvitationBody()}
-      </div>
-      <div className={"large-screen  d-none d-lg-block d-xl-block "}>
-        <div className={"background-img vh-100 "}>{InvitationBody()}</div>
-      </div>
+      {notFound && (
+        <div className={"vh-100"}>
+          <Row className="row d-flex justify-content-center align-items-center vh-100">
+            <Col md className={"text-center"}>
+              <Alert variant="warning">
+                <Alert.Heading>{"Oppz.."}</Alert.Heading>
+                <Typography Tag={"h1"}>
+                  {"Seems you are visited to invalid link. .."}
+                </Typography>
+              </Alert>
+            </Col>
+          </Row>
+        </div>
+      )}
+      {isLoading && (
+        <div className={"vh-100"}>
+          <Row className="row d-flex justify-content-center align-items-center vh-100">
+            <Col md className={"text-center"}>
+              <Spinner animation="border" variant="primary" />
+              <Typography Tag={"h2"}>Loading Your Invitation..</Typography>
+            </Col>
+          </Row>
+        </div>
+      )}
+
+      {GuestInfo !== null && (
+        <React.Fragment>
+          <div className={"background-img vh-100  d-lg-none d-xl-none"}>
+            {InvitationBody(GuestInfo)}
+          </div>
+          <div className={"large-screen  d-none d-lg-block d-xl-block "}>
+            <div className={"background-img vh-100 "}>
+              {InvitationBody(GuestInfo)}
+            </div>
+          </div>
+        </React.Fragment>
+      )}
     </PageTemplate>
   );
 };

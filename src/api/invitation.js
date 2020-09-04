@@ -10,7 +10,6 @@
 
 export default (axios, base) => ({
   getSpecificInvitation: (data) => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
     return axios.get(`${base}/${data.code}`);
   },
 });

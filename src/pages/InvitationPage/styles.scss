@@ -9,6 +9,7 @@
  */
 
 .page-invitation {
+  line-height: 1;
   .large-screen {
     width: 500px;
     height: 500px;
@@ -31,8 +32,8 @@
         position: absolute;
 
         .date-img {
-          width: 150px;
-          resize: vertical;
+          height: 50px;
+          resize: horizontal;
         }
       }
     }
