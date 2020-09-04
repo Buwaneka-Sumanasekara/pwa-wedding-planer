@@ -15,6 +15,7 @@ const App = () => {
           <Route path={ROUTE_HOME} exact component={HomePage} />
           <Route path={ROUTE_GUESTS} exact component={GuestsPage} />
           <Route path={ROUTE_INVITATION} exact component={InvitationPage} />
+          <Route component={HomePage} />
         </Switch>
       </BrowserRouter>
     </React.Fragment>
