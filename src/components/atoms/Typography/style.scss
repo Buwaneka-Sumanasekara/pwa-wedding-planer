@@ -1,0 +1,46 @@
+/*
+ * File: style.scss
+ * File Created: Friday, 4th September 2020 10:20:04 pm
+ * Author: Buwaneka (buwanekasumanasekara@gmail.com)
+ * -----
+ * Last Modified: Friday, 4th September 2020 10:20:04 pm
+ * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
+ * --------------------------------------------------------------
+ */
+
+h1 {
+  font-size: 3vh;
+  margin-bottom: 0;
+}
+h2 {
+  font-size: 2.5vh;
+  margin-bottom: 0;
+}
+h3 {
+  font-size: 2vh;
+  margin-bottom: 0;
+}
+h4 {
+  font-size: 1.8vh;
+  margin-bottom: 0;
+}
+p {
+  font-size: 1.5vh;
+  margin-bottom: 0;
+}
+small {
+  font-size: 1.3vh;
+  margin-bottom: 0;
+}
+
+.letter-spacing {
+  &-1 {
+    letter-spacing: 1px;
+  }
+  &-2 {
+    letter-spacing: 2px;
+  }
+  &-3 {
+    letter-spacing: 3px;
+  }
+}

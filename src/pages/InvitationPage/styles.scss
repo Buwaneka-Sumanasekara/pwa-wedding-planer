@@ -1,0 +1,40 @@
+/*
+ * File: styles.scss
+ * File Created: Friday, 4th September 2020 8:47:24 pm
+ * Author: Buwaneka (buwanekasumanasekara@gmail.com)
+ * -----
+ * Last Modified: Friday, 4th September 2020 8:47:24 pm
+ * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
+ * --------------------------------------------------------------
+ */
+
+.page-invitation {
+  .large-screen {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    margin-left: 40%;
+  }
+  .background-img {
+    background-image: url("/images/inv-background.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    .invitation {
+      .cover-img {
+        z-index: -100;
+        position: absolute;
+      }
+      &-body {
+        z-index: 100000;
+        //background-color: red;
+        position: absolute;
+
+        .date-img {
+          width: 150px;
+          resize: vertical;
+        }
+      }
+    }
+  }
+}
