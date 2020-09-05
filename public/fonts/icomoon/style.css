@@ -1,21 +1,10 @@
-/*
- * File: style.scss
- * Project: cellcard-play-pwa
- * File Created: Friday, 10th July 2020 2:42:07 pm
- * Author: Jude Fernando (jfernando@mitrai.com)
- * -----
- * Last Modified: Tuesday, 14th July 2020 2:04:02 am
- * Modified By: Jude Fernando (jfernando@mitrai.com)
- * -----
- * Copyright 2020 - 2020 Mitra Innovation Ltd., Mitra Innovation Ltd.
- */
 @font-face {
   font-family: "icomoon";
-  src: url("/fonts/icomoon.eot?4ov4fz");
-  src: url("/fonts/icomoon.eot?4ov4fz#iefix") format("embedded-opentype"),
-    url("/fonts/icomoon.ttf?4ov4fz") format("truetype"),
-    url("/fonts/icomoon.woff?4ov4fz") format("woff"),
-    url("/fonts/icomoon.svg?4ov4fz#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?d5svyk");
+  src: url("fonts/icomoon.eot?d5svyk#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?d5svyk") format("truetype"),
+    url("fonts/icomoon.woff?d5svyk") format("woff"),
+    url("fonts/icomoon.svg?d5svyk#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;

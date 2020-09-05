@@ -31,7 +31,13 @@ import _ from "lodash";
 
 const source = _.get(api, "invitation");
 
-const InvitationBody = (GuestInfo) => {
+const InvitationBody = (props) => {
+  const {
+    GuestInfo,
+    Invitation,
+    onAcceptDecline = () => {},
+    onRequestChange = () => {},
+  } = props;
   const _handleGetDirections = () => {
     //https://www.google.com/maps/dir//Saminro%20Grand%20Palace,%20287%20Makola%20Rd,%20Kiribathgoda
     window.location.href =
@@ -42,6 +48,10 @@ const InvitationBody = (GuestInfo) => {
 
   const GuestName = GuestInfo.guest.name;
   const GuestInviteMode = GuestInfo.guest.inviteMode;
+  const isAccepted = Invitation.accepted;
+  const AlreadMarked = Invitation.scanned;
+
+  console.log("marked", AlreadMarked);
 
   return (
     <div
@@ -142,13 +152,6 @@ const InvitationBody = (GuestInfo) => {
         </Row>
         <Row>
           <Col>
-            <Typography Tag={"small"} className={"font-weight-bold"}>
-              {"SUNDAY"}
-            </Typography>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <Typography Tag={"small"} className={"mt-2"}>
               {"AT"}
             </Typography>
@@ -174,11 +177,70 @@ const InvitationBody = (GuestInfo) => {
         </Row>
         <Row className={"pt-3"}>
           <Col>
-            <Button variant="primary" onClick={() => _handleGetDirections()}>
-              <Icon icon={"info"} /> Get Direction
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={() => _handleGetDirections()}
+            >
+              <Icon icon={"location2"} /> Get Direction
             </Button>
           </Col>
         </Row>
+
+        {AlreadMarked && (
+          <Row className={"pt-2"}>
+            <Col>
+              <Alert variant={"light"}>
+                <Typography Tag={"span"}>
+                  {`You have already marked as `}
+                  <strong>{`${
+                    isAccepted ? `attended` : `unable to come`
+                  } ,`}</strong>
+                </Typography>
+                <Alert.Link href="#" onClick={() => onRequestChange()}>
+                  {" "}
+                  <Typography Tag={"span"}>
+                    {`Do you want to change?`}
+                  </Typography>
+                </Alert.Link>
+              </Alert>
+            </Col>
+          </Row>
+        )}
+
+        {!AlreadMarked && (
+          <React.Fragment>
+            <Row className={"px-1"}>
+              <Col>
+                <Typography
+                  Tag={"small"}
+                >{`Are you expected to join this event?`}</Typography>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button
+                  variant="success"
+                  size="sm"
+                  onClick={() => onAcceptDecline(true)}
+                >
+                  <Icon icon={"smile"} />{" "}
+                  <Typography Tag={"span"}>{`YES`}</Typography>
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => onAcceptDecline(false)}
+                >
+                  <Icon icon={"sad"} />{" "}
+                  <Typography Tag={"span"}>{`NO`}</Typography>
+                </Button>
+              </Col>
+            </Row>
+          </React.Fragment>
+        )}
       </Container>
     </div>
   );
@@ -187,18 +249,22 @@ const InvitationBody = (GuestInfo) => {
 const InvitationPage = () => {
   const { code } = useParams();
   const [isLoading, setLoading] = useState(false);
+  const [LoadingMessage, setLoadingMessage] = useState(
+    "Loading Your Invitation.."
+  );
   const [notFound, setNotFound] = useState(false);
   const [GuestInfo, setGuestInfo] = useState(null);
+  const [Invitation, setInvitation] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-
     if (source) {
+      setLoading(true);
       source.getSpecificInvitation({ code: code }).then((res) => {
         console.log(res);
         setLoading(false);
         if (res.data["data"] !== undefined) {
           setGuestInfo(res.data["data"]);
+          setInvitation(res.data["data"]);
         } else {
           setNotFound(true);
         }
@@ -206,6 +272,26 @@ const InvitationPage = () => {
     }
   }, []);
 
+  const actionAcceptReject = (isAccepted) => {
+    if (source) {
+      setLoadingMessage("Processing..");
+      setLoading(true);
+      source
+        .actionAcceptDecline({ code: code, isAccepted: isAccepted })
+        .then((res) => {
+          setLoading(false);
+          if (res.data["data"] !== undefined) {
+            setInvitation(res.data["data"]);
+          }
+        });
+    }
+  };
+  const onRequestChange = () => {
+    const invObj = Invitation;
+    invObj.scanned = false;
+
+    setInvitation({ ...invObj });
+  };
   return (
     <PageTemplate page_name={"invitation"}>
       {notFound && (
@@ -227,20 +313,32 @@ const InvitationPage = () => {
           <Row className="row d-flex justify-content-center align-items-center vh-100">
             <Col md className={"text-center"}>
               <Spinner animation="border" variant="primary" />
-              <Typography Tag={"h2"}>Loading Your Invitation..</Typography>
+              <Typography Tag={"h2"}>{LoadingMessage}</Typography>
             </Col>
           </Row>
         </div>
       )}
 
-      {GuestInfo !== null && (
+      {GuestInfo !== null && Invitation !== null && (
         <React.Fragment>
           <div className={"background-img vh-100  d-lg-none d-xl-none"}>
-            {InvitationBody(GuestInfo)}
+            {/* {InvitationBody(GuestInfo, Invitation, actionAcceptReject,onRequestChange)} */}
+            <InvitationBody
+              GuestInfo={GuestInfo}
+              Invitation={Invitation}
+              onAcceptDecline={actionAcceptReject}
+              onRequestChange={onRequestChange}
+            />
           </div>
           <div className={"large-screen  d-none d-lg-block d-xl-block "}>
             <div className={"background-img vh-100 "}>
-              {InvitationBody(GuestInfo)}
+              {/* {InvitationBody(GuestInfo, Invitation, actionAcceptReject,onRequestChange)} */}
+              <InvitationBody
+                GuestInfo={GuestInfo}
+                Invitation={Invitation}
+                onAcceptDecline={actionAcceptReject}
+                onRequestChange={onRequestChange}
+              />
             </div>
           </div>
         </React.Fragment>

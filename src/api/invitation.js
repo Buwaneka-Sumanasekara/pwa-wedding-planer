@@ -12,4 +12,7 @@ export default (axios, base) => ({
   getSpecificInvitation: (data) => {
     return axios.get(`${base}/${data.code}`);
   },
+  actionAcceptDecline: (data) => {
+    return axios.put(`${base}/${data.code}`, { accepted: data.isAccepted });
+  },
 });
