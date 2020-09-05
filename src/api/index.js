@@ -8,7 +8,10 @@
  * --------------------------------------------------------------
  */
 import axios from "axios";
+
 import invitation from "./invitation";
+import common from "./common";
+import guests from "./guests";
 
 const API_URL = process.env.REACT_APP_API_ENDPOINT;
 
@@ -22,4 +25,6 @@ axios.defaults.headers.common["x-browser"] = userAgent;
 
 export default {
   invitation: invitation(axios, `/invitation`),
+  common: common(axios, `/common`),
+  guests: guests(axios, `/guests`),
 };
