@@ -133,6 +133,7 @@ const SearchBar = (props) => {
         filters={filters}
         show={ShowFilterModal}
         onClose={() => setVisibleFilterModal(false)}
+        onFilterDoneFilter={(ar_filters) => console.log(ar_filters)}
       />
     </>
   );

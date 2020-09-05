@@ -43,7 +43,12 @@ const FilterSection = (props) => {
           <Accordion.Collapse eventKey={data.key}>
             <ListGroup>
               {ar_tags.map((v) => (
-                <ListGroup.Item onClick={() => onChangeTag(v)}>
+                <ListGroup.Item
+                  onClick={() => onChangeTag(v)}
+                  active={
+                    SelectedTag !== null ? v.id === SelectedTag.id : false
+                  }
+                >
                   {v.name}
                 </ListGroup.Item>
               ))}

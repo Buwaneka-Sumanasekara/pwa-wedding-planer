@@ -9,20 +9,26 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Modal, Accordion } from "react-bootstrap";
+import { Modal, Accordion, Button } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import FilterSection from "../../atoms/FilterSection";
 
 import "./styles.scss";
 
 const Filter = (props) => {
-  const {
-    filters = [],
-    onChangeFilter = () => {},
-    show,
-    onClose,
-    onChange,
-  } = props;
+  const { filters = [], onFilterDoneFilter = () => {}, show, onClose } = props;
+
+  const [SelectedFilters, setSelectedFilters] = useState([]);
+
+  const onConfirmFilters = () => {
+    onFilterDoneFilter(SelectedFilters);
+    onClose();
+  };
+  const onChangeFilter = (v) => {
+    const curFilters = SelectedFilters.filter((value) => value.key !== v.key);
+    curFilters.push(v);
+    setSelectedFilters(curFilters);
+  };
 
   return (
     <Modal show={show} onHide={onClose} size="lg">
@@ -42,6 +48,9 @@ const Filter = (props) => {
           })}
         </Accordion>
       </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => onConfirmFilters()}> {"Filter"}</Button>
+      </Modal.Footer>
     </Modal>
   );
 };
