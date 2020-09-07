@@ -14,6 +14,7 @@ import PageTemplate from "../../components/templates/BlankTemplate";
 import "./styles.scss";
 
 const HomePage = () => {
+  console.log(window.location.origin);
   return (
     <PageTemplate page_name={"home"}>
       <Container className={" h-100"}>

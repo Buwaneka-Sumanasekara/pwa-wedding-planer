@@ -3,8 +3,15 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import GuestsPage from "./pages/GuestsPage";
+import InvitationPage from "./pages/InvitationPage";
+import GuestsManagePage from "./pages/GuestsUpdatePage";
 
-import { ROUTE_HOME, ROUTE_GUESTS } from "./constants/Routes";
+import {
+  ROUTE_HOME,
+  ROUTE_GUESTS,
+  ROUTE_INVITATION,
+  ROUTE_GUEST_MANAGE,
+} from "./constants/Routes";
 
 const App = () => {
   return (
@@ -13,6 +20,9 @@ const App = () => {
         <Switch>
           <Route path={ROUTE_HOME} exact component={HomePage} />
           <Route path={ROUTE_GUESTS} exact component={GuestsPage} />
+          <Route path={ROUTE_INVITATION} exact component={InvitationPage} />
+          <Route path={ROUTE_GUEST_MANAGE} exact component={GuestsManagePage} />
+          <Route component={HomePage} />
         </Switch>
       </BrowserRouter>
     </React.Fragment>
