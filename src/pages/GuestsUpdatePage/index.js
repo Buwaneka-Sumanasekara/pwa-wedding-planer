@@ -20,12 +20,21 @@ import "./styles.scss";
 const GuestUpdatePage = () => {
   const { result, setResults } = useState([]);
 
+  const onFilterChange = (ar_filter_values) => {
+    console.log("filter values", ar_filter_values);
+  };
+
+  const onInputChange = (txt) => {};
+
   return (
     <PageTemplate page_name={"guests-update"}>
       <Container className={"py-3"}>
         <Row>
           <Col>
-            <SearchBar />
+            <SearchBar
+              onFiltersChange={(v) => onFilterChange(v)}
+              onSearchInputChange={(txt) => onInputChange(txt)}
+            />
           </Col>
         </Row>
         <Row className={"py-3 px-5"}>

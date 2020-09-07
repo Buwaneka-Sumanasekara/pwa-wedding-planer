@@ -21,6 +21,7 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
+import Typography from "../../atoms/Typography";
 import FilterModal from "../../molecules/Filter";
 
 import "./styles.scss";
@@ -62,7 +63,7 @@ const SearchBar = (props) => {
 
   const onChangeText = (e) => {
     const text = e.target.value;
-    console.log(text);
+    // console.log(text);
     setText(text);
     if (minChars < txt.length) {
       onSearchInputChange(text);
@@ -71,16 +72,28 @@ const SearchBar = (props) => {
 
   const onChangeSide = (side) => {
     setSelectedSide(side);
-    onFiltersChange({ key: "side", value: side, needToShow: false });
+    setSelectedFilters([]);
+    onFiltersChange([{ key: "side", value: side, needToShow: false }]);
   };
 
   const showFilterModal = () => {
     setVisibleFilterModal(true);
   };
 
+  const onFilterSelectedTags = (arFilters) => {
+    setSelectedFilters(arFilters);
+    onFiltersChange(arFilters);
+  };
+
+  const onRemoveTag = (tag) => {
+    const arRemianTags = SelectedFilters.filter((v) => v.key !== tag.key);
+    setSelectedFilters(arRemianTags);
+    onFiltersChange(arRemianTags);
+  };
+
   return (
     <>
-      <Form>
+      <Form className={"search-component"}>
         <InputGroup>
           <Form.Control
             placeholder="Search by Name"
@@ -101,7 +114,6 @@ const SearchBar = (props) => {
                     <Icon icon={"filter_list_alt"} />
                   </Button>
                   <DropdownButton
-                    //as={InputGroup.Append}
                     variant="outline-secondary"
                     title={SelectedSide.name}
                   >
@@ -121,13 +133,30 @@ const SearchBar = (props) => {
               )}
           </InputGroup.Append>
         </InputGroup>
+
+        <div className={"tags-wrapper py-2"}>
+          {SelectedFilters.map((v, i) => (
+            <Button
+              key={`filter_but${i}`}
+              size="sm"
+              variant={"light"}
+              onClick={() => onRemoveTag(v)}
+            >
+              <Icon icon={"price-tag"} />{" "}
+              <Typography Tag={"span"}>{v.value.name}</Typography>
+            </Button>
+          ))}
+        </div>
       </Form>
-      <FilterModal
-        filters={filters}
-        show={ShowFilterModal}
-        onClose={() => setVisibleFilterModal(false)}
-        onFilterDoneFilter={(ar_filters) => console.log(ar_filters)}
-      />
+      {SelectedSide !== undefined && SelectedSide.name !== undefined && (
+        <FilterModal
+          filters={filters}
+          show={ShowFilterModal}
+          onClose={() => setVisibleFilterModal(false)}
+          onFilterDoneFilter={(ar_filters) => onFilterSelectedTags(ar_filters)}
+          side={SelectedSide.id}
+        />
+      )}
     </>
   );
 };

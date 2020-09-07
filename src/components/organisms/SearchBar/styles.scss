@@ -7,3 +7,16 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
+
+.search-component {
+  .tags-wrapper {
+    .btn {
+      display: inline;
+    }
+  }
+  .dropdown {
+    .btn {
+      text-transform: capitalize;
+    }
+  }
+}

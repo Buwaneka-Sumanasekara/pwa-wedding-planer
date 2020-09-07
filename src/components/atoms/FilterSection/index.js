@@ -17,7 +17,7 @@ const FilterSection = (props) => {
   const {
     data,
     DependTag = "",
-    DependTagValue = "",
+    DependTagValues = [],
     onSelectTagChange = () => {},
   } = props;
 
@@ -28,12 +28,22 @@ const FilterSection = (props) => {
     onSelectTagChange({ key: data.key, value: v });
   };
 
+  const getFilteredTags = (ar_data) => {
+    let ar = [];
+    for (const dependtag_val of DependTagValues) {
+      const ar_filters = ar_data.filter((v) => v[DependTag] === dependtag_val);
+      ar = ar.concat(ar_filters);
+    }
+    return ar;
+  };
+
   let ar_tags = [];
   if (data !== undefined && data.values !== undefined) {
     ar_tags =
-      DependTag !== "" && DependTagValue !== ""
-        ? data.values.filter((v) => v[DependTag] === DependTagValue)
+      DependTag !== "" && DependTagValues.length > 0
+        ? getFilteredTags(data.values)
         : data.values;
+
     return (
       <Card>
         <Card.Body>
@@ -44,6 +54,7 @@ const FilterSection = (props) => {
             <ListGroup>
               {ar_tags.map((v) => (
                 <ListGroup.Item
+                  key={`key_ilter_items_${data.key}${v.id}`}
                   onClick={() => onChangeTag(v)}
                   active={
                     SelectedTag !== null ? v.id === SelectedTag.id : false

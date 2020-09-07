@@ -16,7 +16,13 @@ import FilterSection from "../../atoms/FilterSection";
 import "./styles.scss";
 
 const Filter = (props) => {
-  const { filters = [], onFilterDoneFilter = () => {}, show, onClose } = props;
+  const {
+    side = "",
+    filters = [],
+    onFilterDoneFilter = () => {},
+    show,
+    onClose,
+  } = props;
 
   const [SelectedFilters, setSelectedFilters] = useState([]);
 
@@ -38,11 +44,30 @@ const Filter = (props) => {
       <Modal.Body>
         <Accordion defaultActiveKey={""}>
           {filters.map((value, i) => {
+            const dependValue = SelectedFilters.find(
+              (ele) => ele["key"] === value.depend_on
+            );
+            const dependar =
+              dependValue !== undefined ? [dependValue.value.id] : [];
+
+            if (value.depend_on === "side") {
+              return (
+                <FilterSection
+                  key={`filterSection_side${i}`}
+                  data={value}
+                  onSelectTagChange={(v) => onChangeFilter(v)}
+                  DependTag={"side"}
+                  DependTagValues={[side, "COMMON"]}
+                />
+              );
+            }
             return (
               <FilterSection
                 key={`filterSection_${i}`}
                 data={value}
                 onSelectTagChange={(v) => onChangeFilter(v)}
+                DependTag={value.depend_on}
+                DependTagValues={dependar}
               />
             );
           })}
