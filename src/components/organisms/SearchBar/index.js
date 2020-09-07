@@ -81,53 +81,46 @@ const SearchBar = (props) => {
   return (
     <>
       <Form>
-        <Row className={"px-5"}>
-          <Col>
-            <InputGroup>
-              <Form.Control
-                placeholder="Search by Name"
-                value={txt}
-                onChange={onChangeText}
-              />
-              <InputGroup.Append>
-                <Button variant="outline-secondary">
-                  {" "}
-                  <Icon icon={"search"} />
-                </Button>
+        <InputGroup>
+          <Form.Control
+            placeholder="Search by Name"
+            value={txt}
+            onChange={onChangeText}
+          />
+          <InputGroup.Append>
+            <Button variant="outline-secondary">
+              {" "}
+              <Icon icon={"search"} />
+            </Button>
 
-                {filters.length > 0 &&
-                  SelectedSide !== undefined &&
-                  SelectedSide.name !== undefined && (
-                    <>
-                      <Button
-                        variant="outline-secondary"
-                        onClick={showFilterModal}
-                      >
-                        <Icon icon={"filter_list_alt"} />
-                      </Button>
-                      <DropdownButton
-                        //as={InputGroup.Append}
-                        variant="outline-secondary"
-                        title={SelectedSide.name}
-                      >
-                        {sides.map((value, i) => {
-                          return (
-                            <Dropdown.Item
-                              href="#"
-                              key={`filter_side${i}`}
-                              onSelect={() => onChangeSide(value)}
-                            >
-                              {value.name}
-                            </Dropdown.Item>
-                          );
-                        })}
-                      </DropdownButton>
-                    </>
-                  )}
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
+            {filters.length > 0 &&
+              SelectedSide !== undefined &&
+              SelectedSide.name !== undefined && (
+                <>
+                  <Button variant="outline-secondary" onClick={showFilterModal}>
+                    <Icon icon={"filter_list_alt"} />
+                  </Button>
+                  <DropdownButton
+                    //as={InputGroup.Append}
+                    variant="outline-secondary"
+                    title={SelectedSide.name}
+                  >
+                    {sides.map((value, i) => {
+                      return (
+                        <Dropdown.Item
+                          href="#"
+                          key={`filter_side${i}`}
+                          onSelect={() => onChangeSide(value)}
+                        >
+                          {value.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownButton>
+                </>
+              )}
+          </InputGroup.Append>
+        </InputGroup>
       </Form>
       <FilterModal
         filters={filters}

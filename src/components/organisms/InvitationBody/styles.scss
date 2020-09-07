@@ -1,0 +1,31 @@
+/*
+ * File: styles.scss
+ * File Created: Monday, 7th September 2020 7:15:48 pm
+ * Author: Buwaneka (buwanekasumanasekara@gmail.com)
+ * -----
+ * Last Modified: Monday, 7th September 2020 7:15:48 pm
+ * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
+ * --------------------------------------------------------------
+ */
+
+.invitation-body {
+  z-index: 100000;
+  //background-color: red;
+  position: absolute;
+  .invitation-text-wrapper {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .date-img {
+    height: 40px;
+    resize: horizontal;
+  }
+  .guest-name {
+    text-transform: capitalize;
+  }
+  .alert {
+    &-marked-already {
+      color: honeydew;
+      background-color: #7b9087;
+    }
+  }
+}

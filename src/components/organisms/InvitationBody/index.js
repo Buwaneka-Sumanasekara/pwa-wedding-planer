@@ -22,6 +22,8 @@ import Typography from "../../atoms/Typography";
 import Icon from "../../atoms/Icon";
 import Globals from "../../../constants/Globals";
 
+import "./styles.scss";
+
 const InvitationBody = (props) => {
   const {
     GuestInfo,
@@ -47,25 +49,25 @@ const InvitationBody = (props) => {
   return (
     <div
       className={
-        "invitation-body px-5 py-5 vh-100 w-100 d-flex align-items-center justify-content-center "
+        "invitation-body py-2 vh-100 w-100 d-flex align-items-center justify-content-center "
       }
     >
       <Container className={"text-center invitation-text-wrapper"}>
-        <Row>
+        <Row className={"top-header"}>
           <Col>
             <Typography Tag={"small"} letterSpacing={1}>
               Together with their parents
             </Typography>
           </Col>
         </Row>
-        <Row>
+        <Row className={"top-header"}>
           <Col>
             <Typography Tag={"small"}>
               Mr &amp; Mrs Dewage and Mr &amp; Mrs. Sumanasekara
             </Typography>
           </Col>
         </Row>
-        <Row>
+        <Row className={"pt-2"}>
           <Col>
             <Typography Tag={"h2"}>Sulari</Typography>
           </Col>
@@ -85,7 +87,7 @@ const InvitationBody = (props) => {
             <Typography Tag={"small"}>Have much plesure in inviting</Typography>
           </Col>
         </Row>
-        <Row>
+        <Row className={"py-2"}>
           <Col>
             <Typography Tag={"p"} className={"guest-name"}>
               <u>
@@ -126,17 +128,10 @@ const InvitationBody = (props) => {
         </Row>
         <Row>
           <Col>
-            <Typography Tag={"small"} className={"mt-2"}>
-              {"ON"}
-            </Typography>
+            <Typography Tag={"small"}>{"ON"}</Typography>
           </Col>
         </Row>
         <Row>
-          {/* <Col className={"d-flex justify-content-center ml-n3 "}>
-                      <Typography Tag={"h4"} className="d-inline pt-2">OCTOBER</Typography>
-                      <Typography Tag={"h1"} className="d-inline pl-2 pr-3">25</Typography>
-                      <Typography Tag={"h4"} className="d-inline pt-2">2020</Typography>
-                  </Col> */}
           <Col>
             <Image src={"/images/date-img.png"} className={"date-img"} />
           </Col>
@@ -179,9 +174,9 @@ const InvitationBody = (props) => {
         </Row>
 
         {AlreadMarked && (
-          <Row className={"pt-2"}>
-            <Col>
-              <Alert variant={"light"}>
+          <Row className={"pt-2 "}>
+            <Col clasName={"alert"}>
+              <div className={"alert-marked-already  px-2 py-2"}>
                 <Typography Tag={"span"}>
                   {`You have already marked as `}
                   <strong>{`${
@@ -194,7 +189,7 @@ const InvitationBody = (props) => {
                     {`Do you want to change?`}
                   </Typography>
                 </Alert.Link>
-              </Alert>
+              </div>
             </Col>
           </Row>
         )}

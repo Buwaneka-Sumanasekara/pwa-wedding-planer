@@ -16,6 +16,16 @@
     position: absolute;
     margin-left: 40%;
   }
+  .wrapper-loading {
+    .logo {
+      width: 100%;
+      height: 100px;
+      background-image: url("/images/logo.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  }
   .background-img {
     background-image: url("/images/inv-background.svg");
     background-repeat: no-repeat;
@@ -25,19 +35,6 @@
       .cover-img {
         z-index: -100;
         position: absolute;
-      }
-      &-body {
-        z-index: 100000;
-        //background-color: red;
-        position: absolute;
-
-        .date-img {
-          height: 50px;
-          resize: horizontal;
-        }
-        .guest-name {
-          text-transform: capitalize;
-        }
       }
     }
   }

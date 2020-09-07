@@ -22,7 +22,7 @@ const GuestUpdatePage = () => {
 
   return (
     <PageTemplate page_name={"guests-update"}>
-      <div className={"py-3"}>
+      <Container className={"py-3"}>
         <Row>
           <Col>
             <SearchBar />
@@ -33,7 +33,7 @@ const GuestUpdatePage = () => {
             <ResultsBox ardata={result} />
           </Col>
         </Row>
-      </div>
+      </Container>
     </PageTemplate>
   );
 };

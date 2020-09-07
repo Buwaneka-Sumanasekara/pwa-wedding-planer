@@ -95,9 +95,10 @@ const InvitationPage = () => {
         </div>
       )}
       {isLoading && (
-        <div className={"vh-100"}>
+        <div className={"vh-100 wrapper-loading"}>
           <Row className="row d-flex justify-content-center align-items-center vh-100">
             <Col md className={"text-center"}>
+              <div className={"mx-auto w-50 logo"}></div>
               <Spinner animation="border" variant="primary" />
               <Typography Tag={"h2"}>{LoadingMessage}</Typography>
             </Col>
