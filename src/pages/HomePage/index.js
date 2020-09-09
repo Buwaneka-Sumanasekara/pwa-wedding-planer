@@ -8,7 +8,7 @@
  * --------------------------------------------------------------
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useReactPWAInstall } from "react-pwa-install";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import clsx from "clsx";
@@ -18,7 +18,6 @@ import "./styles.scss";
 
 const HomePage = () => {
   console.log(window.location.origin);
-  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
 
   return (
     <PageTemplate page_name={"home"}>
@@ -30,15 +29,6 @@ const HomePage = () => {
           )}
         >
           <Col className={"logo col-12"}></Col>
-          <Col className={"col-12 text-center"}>
-            {supported() && (
-              <Nav className="btn btn-primary flex-column">
-                <Nav.Link as={Link} to="/guests" eventKey="guests">
-                  {"Check Guests"}
-                </Nav.Link>
-              </Nav>
-            )}
-          </Col>
         </Row>
       </Container>
     </PageTemplate>

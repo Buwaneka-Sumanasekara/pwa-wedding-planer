@@ -105,7 +105,7 @@ const GuestPage = () => {
       <Container className={"py-3"}>
         <Row>
           <Col>
-            {supported() && !isInstalled() && (
+            {/* {supported() && !isInstalled() && (
               <Button
                 variant="secondary"
                 className={"mb-2"}
@@ -115,7 +115,7 @@ const GuestPage = () => {
               >
                 Install app
               </Button>
-            )}
+            )} */}
             <SearchBar
               onFiltersChange={(v) => onFilterChange(v)}
               onSearchInputChange={(txt) => onInputChange(txt)}
