@@ -18,19 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
-  "shortcuts": [
-    {
-      "name": "Guests Manage",
-      "short_name": "Guests Manage",
-      "description": "Guests Manage",
-      "url": "/guests-manage",
-      "icons": [
-        { "src": "logo192.png", "sizes": "192x192" },
-        { "src": "logo512.png", "sizes": "512x512" }
-      ]
-    }
-  ],
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

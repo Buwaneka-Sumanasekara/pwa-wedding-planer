@@ -8,9 +8,9 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import ReactPWAInstallProvider, { useReactPWAInstall } from "react-pwa-install";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useReactPWAInstall } from "react-pwa-install";
 
 import PageTemplate from "../../components/templates/BlankTemplate";
 
@@ -35,22 +35,14 @@ const GuestPage = () => {
 
   const handleClick = () => {
     pwaInstall({
-      title: "Install Web App",
-      logo: "/images/logo.png",
-      features: (
-        <ul>
-          <li>Cool feature 1</li>
-          <li>Cool feature 2</li>
-          <li>Even cooler feature</li>
-          <li>Works offline</li>
-        </ul>
-      ),
-      description: "This is a very good app that does a lot of useful stuff. ",
+      title: "Install Wedding Planner App",
+      logo: "/logo192.png",
+      description: "You can install the Wedding Planner App ",
     })
       .then(() =>
         alert("App installed successfully or instructions for install shown")
       )
-      .catch(() => alert("User opted out from installing"));
+      .catch(() => {});
   };
 
   const FilterGuestAPI = (req = {}) => {
@@ -109,35 +101,38 @@ const GuestPage = () => {
 
   const res = FilteredResult();
   return (
-    <ReactPWAInstallProvider enableLogging>
-      <PageTemplate page_name={"guests-update"}>
-        {supported && !isInstalled() && (
-          <button type="button" onClick={handleClick}>
-            Install App
-          </button>
-        )}
-
-        <Container className={"py-3"}>
-          <Row>
-            <Col>
-              <SearchBar
-                onFiltersChange={(v) => onFilterChange(v)}
-                onSearchInputChange={(txt) => onInputChange(txt)}
-              />
-            </Col>
-          </Row>
-          <Row className={"py-3"}>
-            <Col>
-              <ResultsBox
-                ardata={res}
-                renderItem={(v, i) => renderResultItem(v, i)}
-                isLoading={isLoading}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </PageTemplate>
-    </ReactPWAInstallProvider>
+    <PageTemplate page_name={"guests-update"}>
+      <Container className={"py-3"}>
+        <Row>
+          <Col>
+            {supported() && !isInstalled() && (
+              <Button
+                variant="secondary"
+                className={"mb-2"}
+                size="lg"
+                block
+                onClick={handleClick}
+              >
+                Install app
+              </Button>
+            )}
+            <SearchBar
+              onFiltersChange={(v) => onFilterChange(v)}
+              onSearchInputChange={(txt) => onInputChange(txt)}
+            />
+          </Col>
+        </Row>
+        <Row className={"py-3"}>
+          <Col>
+            <ResultsBox
+              ardata={res}
+              renderItem={(v, i) => renderResultItem(v, i)}
+              isLoading={isLoading}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </PageTemplate>
   );
 };
 
