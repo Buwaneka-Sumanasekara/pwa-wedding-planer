@@ -31,7 +31,7 @@ const HomePage = () => {
         >
           <Col className={"logo col-12"}></Col>
           <Col className={"col-12 text-center"}>
-            {supported() && !isInstalled() && (
+            {supported() && (
               <Nav className="btn btn-primary flex-column">
                 <Nav.Link as={Link} to="/guests" eventKey="guests">
                   {"Check Guests"}
