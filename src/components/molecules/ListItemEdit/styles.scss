@@ -1,0 +1,41 @@
+/*
+ * File: styles.scss
+ * File Created: Wednesday, 9th September 2020 6:58:06 pm
+ * Author: Buwaneka (buwanekasumanasekara@gmail.com)
+ * -----
+ * Last Modified: Wednesday, 9th September 2020 6:58:06 pm
+ * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
+ * --------------------------------------------------------------
+ */
+
+.list-item {
+  &-top {
+    &-wrapper {
+      &-left {
+        width: 20%;
+        //background-color: yellow;
+      }
+      &-mid {
+        width: 50%;
+        //background-color: blue;
+      }
+      &-right {
+        width: 30%;
+        //background-color: green;
+      }
+    }
+  }
+  &-bottom {
+    &-wrapper {
+      width: 100%;
+      background-color: aliceblue;
+
+      &-left {
+        width: 60%;
+      }
+      &-right {
+        width: 40%;
+      }
+    }
+  }
+}

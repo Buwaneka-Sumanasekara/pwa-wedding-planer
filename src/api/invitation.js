@@ -15,4 +15,7 @@ export default (axios, base) => ({
   actionAcceptDecline: (data) => {
     return axios.put(`${base}/${data.code}`, { accepted: data.isAccepted });
   },
+  createInvitation: (data) => {
+    return axios.post(`${base}`, { guestId: data.guestId });
+  },
 });

@@ -14,7 +14,7 @@ import PageTemplate from "../../components/templates/BlankTemplate";
 
 import SearchBar from "../../components/organisms/SearchBar";
 import ResultsBox from "../../components/organisms/ResultsBox";
-import ListItem from "../../components/molecules/ListItem";
+import ListItemEdit from "../../components/molecules/ListItemEdit";
 
 import "./styles.scss";
 import Globals from "../../constants/Globals";
@@ -71,7 +71,7 @@ const GuestUpdatePage = () => {
 
   const renderResultItem = (v, i) => {
     return (
-      <ListItem
+      <ListItemEdit
         key={`result_item${i}`}
         inviteMode={v.inviteMode}
         title={v["name"]}
@@ -79,6 +79,7 @@ const GuestUpdatePage = () => {
         tags={[v.tag1, v.tag2, v.tag3]}
         tableNo={v.tableNo}
         seats={v.seats}
+        refCode={v.refCode}
       />
     );
   };
