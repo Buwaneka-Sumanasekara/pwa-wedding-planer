@@ -44,8 +44,6 @@ const InvitationBody = (props) => {
   const isAccepted = Invitation.accepted;
   const AlreadMarked = Invitation.scanned;
 
-  console.log("marked", AlreadMarked);
-
   return (
     <div
       className={

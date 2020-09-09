@@ -33,7 +33,7 @@ const source = _.get(api, "common");
 const SearchBar = (props) => {
   const {
     onSearchInputChange = () => {},
-    minChars = 2,
+    minChars = 0,
     onFiltersChange = () => {},
   } = props;
 
@@ -57,13 +57,15 @@ const SearchBar = (props) => {
           (obj) => obj.key !== "side"
         );
         setFilters(FiltersExcept_side);
+        console.log(side.values[0]);
+        onChangeSide(side.values[0]);
       });
     }
   }, []);
 
   const onChangeText = (e) => {
     const text = e.target.value;
-    // console.log(text);
+
     setText(text);
     if (minChars < txt.length) {
       onSearchInputChange(text);

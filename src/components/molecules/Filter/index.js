@@ -9,9 +9,10 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Modal, Accordion, Button } from "react-bootstrap";
+import { Modal, Accordion, Button, Container, Row, Col } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import FilterSection from "../../atoms/FilterSection";
+import Typography from "../../atoms/Typography";
 
 import "./styles.scss";
 
@@ -36,12 +37,31 @@ const Filter = (props) => {
     setSelectedFilters(curFilters);
   };
 
+  const onRemoveTag = (tag) => {
+    const arRemianTags = SelectedFilters.filter((v) => v.key !== tag.key);
+    setSelectedFilters(arRemianTags);
+  };
+
   return (
     <Modal show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>{"Filters"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <div className={"tags-wrapper py-2"}>
+          {SelectedFilters.map((v, i) => (
+            <Button
+              key={`filter_but${i}`}
+              size="sm"
+              variant={"light"}
+              onClick={() => onRemoveTag(v)}
+            >
+              <Icon icon={"price-tag"} />{" "}
+              <Typography Tag={"span"}>{v.value.name}</Typography>
+            </Button>
+          ))}
+        </div>
+
         <Accordion defaultActiveKey={""}>
           {filters.map((value, i) => {
             const dependValue = SelectedFilters.find(

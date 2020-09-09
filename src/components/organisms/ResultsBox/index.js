@@ -19,16 +19,26 @@ import {
   Button,
 } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
+import LoadingItem from "../../atoms/LoadingItem";
 
 import "./styles.scss";
 
 const ResultBox = (props) => {
-  const { ardata = [], ItemComponent = "div", key = "i" } = props;
+  const {
+    isLoading = false,
+    ardata = [],
+    renderItem = (value, i) => {
+      return <div>{""}</div>;
+    },
+    key = "i",
+  } = props;
   return (
     <>
-      {ardata.map((value, i) => {
-        return <ItemComponent key={`${key}${i}`} data={value} />;
-      })}
+      {isLoading && <LoadingItem isLoading={true} />}
+      {!isLoading &&
+        ardata.map((value, i) => {
+          return renderItem(value, i);
+        })}
     </>
   );
 };

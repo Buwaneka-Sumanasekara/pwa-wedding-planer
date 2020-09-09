@@ -10,6 +10,6 @@
 
 export default (axios, base) => ({
   filterGuests: (data) => {
-    return axios.post(`${base}/guests`, data);
+    return axios.post(`${base}/`, data);
   },
 });

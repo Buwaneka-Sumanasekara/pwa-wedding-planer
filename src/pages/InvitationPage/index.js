@@ -46,7 +46,6 @@ const InvitationPage = () => {
     if (source) {
       setLoading(true);
       source.getSpecificInvitation({ code: code }).then((res) => {
-        console.log(res);
         setLoading(false);
         if (res.data["data"] !== undefined) {
           setGuestInfo(res.data["data"]);
