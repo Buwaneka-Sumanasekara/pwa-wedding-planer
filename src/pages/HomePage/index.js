@@ -25,7 +25,7 @@ const HomePage = () => {
         <Row
           className={clsx(
             "d-flex justify-content align-items-center  mx-auto",
-            supported() && isInstalled() ? "" : "vh-100"
+            "vh-100"
           )}
         >
           <Col className={"logo col-12"}></Col>
