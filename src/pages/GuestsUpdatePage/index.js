@@ -73,10 +73,12 @@ const GuestUpdatePage = () => {
     return (
       <ListItem
         key={`result_item${i}`}
-        leftComponent={""}
+        inviteMode={v.inviteMode}
         title={v["name"]}
         subTitle={v["nickName"]}
-        rightComponent={"nickName"}
+        tags={[v.tag1, v.tag2, v.tag3]}
+        tableNo={v.tableNo}
+        seats={v.seats}
       />
     );
   };
