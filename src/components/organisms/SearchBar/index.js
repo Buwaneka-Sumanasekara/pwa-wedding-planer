@@ -18,6 +18,7 @@ import {
   InputGroup,
   Button,
   DropdownButton,
+  ButtonGroup,
   Dropdown,
 } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
@@ -95,46 +96,46 @@ const SearchBar = (props) => {
 
   return (
     <>
-      <Form className={"search-component"}>
-        <InputGroup>
+      <div className={"search-component px-2"}>
+        <div className="form-group">
           <Form.Control
             placeholder="Search by Name"
             value={txt}
             onChange={onChangeText}
           />
-          <InputGroup.Append>
-            <Button variant="outline-secondary">
-              {" "}
-              <Icon icon={"search"} />
-            </Button>
+        </div>
 
-            {filters.length > 0 &&
-              SelectedSide !== undefined &&
-              SelectedSide.name !== undefined && (
-                <>
-                  <Button variant="outline-secondary" onClick={showFilterModal}>
-                    <Icon icon={"filter_list_alt"} />
-                  </Button>
-                  <DropdownButton
-                    variant="outline-secondary"
-                    title={SelectedSide.name}
-                  >
-                    {sides.map((value, i) => {
-                      return (
-                        <Dropdown.Item
-                          href="#"
-                          key={`filter_side${i}`}
-                          onSelect={() => onChangeSide(value)}
-                        >
-                          {value.name}
-                        </Dropdown.Item>
-                      );
-                    })}
-                  </DropdownButton>
-                </>
-              )}
-          </InputGroup.Append>
-        </InputGroup>
+        <div className={"py-1 d-flex justify-content-between"}>
+          {filters.length > 0 &&
+            SelectedSide !== undefined &&
+            SelectedSide.name !== undefined && (
+              <>
+                <Button variant="outline-secondary" onClick={showFilterModal}>
+                  <Icon icon={"filter_list_alt"} />
+                </Button>
+                <Dropdown
+                  as={ButtonGroup}
+                  variant="outline-secondary"
+                  title={SelectedSide.name}
+                  className={"d-flex flex-row"}
+                >
+                  {sides.map((value, i) => {
+                    return (
+                      <Dropdown.Item
+                        href="#"
+                        key={`filter_side${i}`}
+                        onSelect={() => onChangeSide(value)}
+                        eventKey={value.id}
+                        active={value.id === SelectedSide.id}
+                      >
+                        <Typography Tag={"h4"}> {value.name}</Typography>
+                      </Dropdown.Item>
+                    );
+                  })}
+                </Dropdown>
+              </>
+            )}
+        </div>
 
         <div className={"tags-wrapper py-2"}>
           {SelectedFilters.map((v, i) => (
@@ -149,7 +150,7 @@ const SearchBar = (props) => {
             </Button>
           ))}
         </div>
-      </Form>
+      </div>
       {SelectedSide !== undefined && SelectedSide.name !== undefined && (
         <FilterModal
           filters={filters}

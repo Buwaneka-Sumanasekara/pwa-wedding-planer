@@ -14,6 +14,22 @@ import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 
 import { Spinner, Button, Badge } from "react-bootstrap";
+import Globals from "../../../constants/Globals";
+
+const getColor = (inviteMode) => {
+  switch (inviteMode) {
+    case Globals.InviteMode.MR:
+      return "success";
+    case Globals.InviteMode.MRS:
+      return "danger";
+    case Globals.InviteMode.MR_MRS:
+      return "info";
+    case Globals.InviteMode.FAMILY:
+      return "dark";
+    default:
+      return "light";
+  }
+};
 
 const ListItem = (props) => {
   const { key, title, subTitle, tags, tableNo, inviteMode, seats } = props;
@@ -30,16 +46,29 @@ const ListItem = (props) => {
           }
         >
           <div className={"list-item-icon text-center w-100"}>
-            <Icon icon={"user"} />
-            <Icon icon={"user"} />
-            <Icon icon={"user"} />
+            {(inviteMode === Globals.InviteMode.MR ||
+              inviteMode === Globals.InviteMode.MRS ||
+              inviteMode === Globals.InviteMode.MS) && <Icon icon={"user"} />}
+            {inviteMode === Globals.InviteMode.MR_MRS && (
+              <>
+                <Icon icon={"user"} />
+                <Icon icon={"user"} />
+              </>
+            )}
+            {inviteMode === Globals.InviteMode.FAMILY && (
+              <>
+                <Icon icon={"user"} />
+                <Icon icon={"user"} />
+                <Icon icon={"user"} />
+              </>
+            )}
           </div>
           <div className={" text-center w-100"}>
             <Typography Tag={"p"}>{`Seats`}</Typography>
             <Typography Tag={"h3"}>{seats}</Typography>
           </div>
           <div className={"text-center w-100"}>
-            <Badge variant="info">
+            <Badge variant={getColor(inviteMode)}>
               <Typography Tag={"small"}>{inviteMode}</Typography>
             </Badge>
           </div>

@@ -10,6 +10,10 @@
 
 const InviteMode = {
   FAMILY: "FAMILY",
+  MR: "MR",
+  MS: "MS",
+  MR_MRS: "MR & MRS",
+  MRS: "MRS",
 };
 
 const FilterByText = (data = [], txt = "", key = "name", key2 = "nickName") => {
