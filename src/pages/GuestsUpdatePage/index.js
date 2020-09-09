@@ -8,8 +8,8 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState, useEffect } from "react";
-import { Image, Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 
 import SearchBar from "../../components/organisms/SearchBar";

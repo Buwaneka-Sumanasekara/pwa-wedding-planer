@@ -9,21 +9,10 @@
  */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Image,
-  Container,
-  Row,
-  Col,
-  Button,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import { Row, Col, Spinner, Alert } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 import Typography from "../../components/atoms/Typography";
-import Icon from "../../components/atoms/Icon";
 import InvitationBody from "../../components/organisms/InvitationBody";
-
-import Globals from "../../constants/Globals";
 
 import "./styles.scss";
 

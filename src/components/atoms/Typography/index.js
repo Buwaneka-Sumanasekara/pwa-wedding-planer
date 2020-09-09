@@ -7,7 +7,7 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./style.scss";
 import clsx from "clsx";
 

@@ -7,13 +7,12 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
-import React, { useState } from "react";
-import clsx from "clsx";
+import React from "react";
 import "./styles.scss";
 import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 
-import { Spinner, Button, Badge } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import Globals from "../../../constants/Globals";
 
 const getColor = (inviteMode) => {

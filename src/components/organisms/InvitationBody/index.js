@@ -7,16 +7,8 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
-import React, { useState, useEffect } from "react";
-import {
-  Image,
-  Container,
-  Row,
-  Col,
-  Button,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import React from "react";
+import { Image, Container, Row, Col, Button, Alert } from "react-bootstrap";
 
 import Typography from "../../atoms/Typography";
 import Icon from "../../atoms/Icon";
@@ -173,7 +165,7 @@ const InvitationBody = (props) => {
 
         {AlreadMarked && (
           <Row className={"pt-2 "}>
-            <Col clasName={"alert"}>
+            <Col className={"alert"}>
               <div className={"alert-marked-already  px-2 py-2"}>
                 <Typography Tag={"span"}>
                   {`You have already marked as `}

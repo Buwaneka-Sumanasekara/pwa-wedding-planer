@@ -9,18 +9,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import {
-  Image,
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Button,
-  DropdownButton,
-  ButtonGroup,
-  Dropdown,
-} from "react-bootstrap";
+import { Form, Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 import FilterModal from "../../molecules/Filter";
@@ -47,6 +36,12 @@ const SearchBar = (props) => {
 
   const [txt, setText] = useState("");
 
+  const onChangeSide = (side) => {
+    setSelectedSide(side);
+    setSelectedFilters([]);
+    onFiltersChange([{ key: "side", value: side, needToShow: false }]);
+  };
+
   useEffect(() => {
     if (source) {
       source.getFilters().then((res) => {
@@ -71,12 +66,6 @@ const SearchBar = (props) => {
     if (minChars < txt.length) {
       onSearchInputChange(text);
     }
-  };
-
-  const onChangeSide = (side) => {
-    setSelectedSide(side);
-    setSelectedFilters([]);
-    onFiltersChange([{ key: "side", value: side, needToShow: false }]);
   };
 
   const showFilterModal = () => {

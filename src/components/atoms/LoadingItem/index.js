@@ -7,21 +7,11 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
-import React, { useState, useEffect } from "react";
-import {
-  Image,
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Button,
-  Spinner,
-} from "react-bootstrap";
+import React from "react";
+import { Row, Col, Spinner } from "react-bootstrap";
 
 import Typography from "../../atoms/Typography";
 import "./style.scss";
-import clsx from "clsx";
 
 const LoadingItem = (props) => {
   const { isLoading = false, LoadingMessage = "" } = props;

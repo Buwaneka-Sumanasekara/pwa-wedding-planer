@@ -8,17 +8,7 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState, useEffect } from "react";
-import {
-  Image,
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Button,
-} from "react-bootstrap";
-import Icon from "../../atoms/Icon";
+import React from "react";
 import LoadingItem from "../../atoms/LoadingItem";
 
 import "./styles.scss";
@@ -30,7 +20,6 @@ const ResultBox = (props) => {
     renderItem = (value, i) => {
       return <div>{""}</div>;
     },
-    key = "i",
   } = props;
   return (
     <>

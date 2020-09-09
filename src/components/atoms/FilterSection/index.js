@@ -7,9 +7,8 @@
  * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
  * --------------------------------------------------------------
  */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, ListGroup, Accordion } from "react-bootstrap";
-import Icon from "../../atoms/Icon";
 
 import "./styles.scss";
 

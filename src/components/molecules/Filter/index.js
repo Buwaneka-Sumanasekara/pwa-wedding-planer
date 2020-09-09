@@ -8,8 +8,8 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState, useEffect } from "react";
-import { Modal, Accordion, Button, Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal, Accordion, Button } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import FilterSection from "../../atoms/FilterSection";
 import Typography from "../../atoms/Typography";
