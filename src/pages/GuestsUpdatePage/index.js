@@ -8,7 +8,7 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 
@@ -22,19 +22,27 @@ import Globals from "../../constants/Globals";
 import api from "../../api";
 import _ from "lodash";
 
-const source = _.get(api, "guests");
+const source_guests = _.get(api, "guests");
+const source_invitations = _.get(api, "invitation");
 
 const GuestUpdatePage = () => {
   const [result, setResults] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [filterTxt, setFilterText] = useState("");
+  const [filterValues, setfilterValues] = useState([]);
 
-  const FilterGuestAPI = (req = {}) => {
-    if (source) {
-      setLoading(true);
-      source
+  useEffect(() => {
+    FilterGuestAPI();
+  }, [filterValues]);
+
+  const FilterGuestAPI = (showLoading = true) => {
+    const req = Globals.FilterValuesToReqBody(filterValues);
+    if (source_guests) {
+      setLoading(showLoading);
+      source_guests
         .filterGuests(req)
         .then((res) => {
+          console.log("res", res);
           setLoading(false);
           if (res.data["data"] !== undefined) {
             setResults(res.data["data"]);
@@ -49,9 +57,8 @@ const GuestUpdatePage = () => {
   };
 
   const onFilterChange = (ar_filter_values) => {
-    console.log("filter changes", ar_filter_values);
-    const req = Globals.FilterValuesToReqBody(ar_filter_values);
-    FilterGuestAPI(req);
+    console.log("filter changed", ar_filter_values);
+    setfilterValues(ar_filter_values);
   };
 
   const onInputChange = (txt) => {
@@ -68,9 +75,24 @@ const GuestUpdatePage = () => {
     return filtered_res;
   };
 
+  const handleOnGenerateLink = (guestId) => {
+    setLoading(true);
+    source_invitations
+      .createInvitation({ guestId: guestId })
+      .then((res) => {
+        console.log(res);
+        setTimeout(() => FilterGuestAPI(), 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
   const renderResultItem = (v, i) => {
     return (
       <ListItemEdit
+        id={`result_item${i}`}
         key={`result_item${i}`}
         inviteMode={v.inviteMode}
         title={v["name"]}
@@ -79,6 +101,8 @@ const GuestUpdatePage = () => {
         tableNo={v.tableNo}
         seats={v.seats}
         refCode={v.refCode}
+        linkGenerated={v.linkGenerated}
+        onClickGenerate={() => handleOnGenerateLink(v.id)}
       />
     );
   };

@@ -8,6 +8,7 @@
  * --------------------------------------------------------------
  */
 import React from "react";
+import clsx from "clsx";
 import "./styles.scss";
 import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
@@ -30,11 +31,9 @@ const getColor = (inviteMode) => {
   }
 };
 
-const handleOnGenerateLink = () => {};
-
 const ListItemEdit = (props) => {
   const {
-    key,
+    id,
     title,
     subTitle,
     tags,
@@ -42,8 +41,21 @@ const ListItemEdit = (props) => {
     inviteMode,
     seats,
     refCode,
+    linkGenerated,
     onClickGenerate = () => {},
   } = props;
+
+  const url = `${window.location.origin}/invitation/${refCode}`;
+
+  const copyToClipboard = () => {
+    const textField = document.createElement("textarea");
+    textField.innerText = url;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.remove();
+  };
+
   return (
     <div className={"list-item py-2"}>
       <div
@@ -85,9 +97,10 @@ const ListItemEdit = (props) => {
           </div>
         </div>
         <div
-          className={
-            "list-item-top list-item-top-wrapper-mid d-flex align-content-between flex-wrap  px-2"
-          }
+          className={clsx(
+            "list-item-top list-item-top-wrapper-mid d-flex align-content-between flex-wrap  px-2",
+            ""
+          )}
         >
           <Typography Tag={"h2"} className={"w-100"}>
             {title}
@@ -97,11 +110,7 @@ const ListItemEdit = (props) => {
           </Typography>
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
             {tags.map((v, i) => (
-              <Badge
-                key={`${key}tags${i}`}
-                className={"mr-1"}
-                variant="primary"
-              >
+              <Badge key={`${id}tags${i}`} className={"mr-1"} variant="primary">
                 {v}
               </Badge>
             ))}
@@ -115,35 +124,38 @@ const ListItemEdit = (props) => {
         </div>
       </div>
       <div
-        className={
-          "list-item-bottom-wrapper w-100 d-flex justify-content-between py-2 px-2"
-        }
+        className={clsx(
+          "list-item-bottom-wrapper w-100  py-2 px-2",
+          linkGenerated && "d-flex justify-content-between",
+          !linkGenerated && "d-flex justify-content-center"
+        )}
       >
-        {refCode !== "" && (
+        {linkGenerated && (
           <>
-            <input
-              type={"hidden"}
-              value={`${window.location.origin}/invitation/${refCode}`}
-            />
             <div className={"list-item-bottom-wrapper-left"}>
-              <Typography
-                Tag={"h4"}
-              >{`${window.location.origin}/invitation/${refCode}`}</Typography>
+              <Typography Tag={"h4"}>{url}</Typography>
             </div>
             <div
               className={
                 "list-item-bottom-wrapper-right d-flex justify-content-end"
               }
             >
-              <Button>
-                {" "}
-                <Typography Tag={"h4"}>{`Copy `}</Typography>
+              <Button onClick={() => copyToClipboard()} variant={"primary"}>
+                <Icon icon={"content_copy"} />{" "}
+                <Typography
+                  className={"d-inline"}
+                  Tag={"h4"}
+                >{`Copy `}</Typography>
               </Button>
             </div>
           </>
         )}
-        {refCode === "" && (
-          <Button onClick={handleOnGenerateLink}>
+        {!linkGenerated && (
+          <Button
+            onClick={onClickGenerate}
+            variant={"danger"}
+            className={"mx-auto"}
+          >
             {" "}
             <Typography
               Tag={"h4"}
