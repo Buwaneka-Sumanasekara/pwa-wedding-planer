@@ -90,6 +90,7 @@ const GuestUpdatePage = () => {
   };
 
   const renderResultItem = (v, i) => {
+    console.log(v);
     return (
       <ListItemEdit
         id={`result_item${i}`}
@@ -103,6 +104,7 @@ const GuestUpdatePage = () => {
         refCode={v.refCode}
         linkGenerated={v.linkGenerated}
         onClickGenerate={() => handleOnGenerateLink(v.id)}
+        side={v.side}
       />
     );
   };

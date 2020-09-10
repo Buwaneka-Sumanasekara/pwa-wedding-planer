@@ -9,6 +9,13 @@
  */
 
 .list-item {
+  &-b {
+    background-color: #e9f1f2;
+  }
+  &-s {
+    background-color: #ebdde9;
+  }
+  border-radius: 10px;
   &-top {
     &-wrapper {
       &-left {
@@ -21,14 +28,25 @@
       }
       &-right {
         width: 30%;
-        //background-color: green;
       }
     }
   }
   &-bottom {
     &-wrapper {
       width: 100%;
-      background-color: aliceblue;
+      &-s {
+        background-color: #d61ebc;
+      }
+      &-b {
+        background-color: #0aacc2;
+      }
+
+      &-left {
+        width: 60%;
+      }
+      &-right {
+        width: 40%;
+      }
     }
   }
 }

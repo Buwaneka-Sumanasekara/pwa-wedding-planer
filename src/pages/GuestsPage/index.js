@@ -95,6 +95,7 @@ const GuestPage = () => {
         tags={[v.tag1, v.tag2, v.tag3]}
         tableNo={v.tableNo}
         seats={v.seats}
+        side={v.side}
       />
     );
   };

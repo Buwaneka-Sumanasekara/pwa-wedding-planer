@@ -42,6 +42,7 @@ const ListItemEdit = (props) => {
     seats,
     refCode,
     linkGenerated,
+    side,
     onClickGenerate = () => {},
   } = props;
 
@@ -57,7 +58,12 @@ const ListItemEdit = (props) => {
   };
 
   return (
-    <div className={"list-item py-2"}>
+    <div
+      className={clsx(
+        "list-item-edit my-2 py-2 px-2",
+        side === "B" ? "list-item-edit-b" : "list-item-edit-s"
+      )}
+    >
       <div
         className={
           "list-item-top-wrapper d-flex justify-content-between py-2 border-bottom border-secondary"
@@ -125,19 +131,23 @@ const ListItemEdit = (props) => {
       </div>
       <div
         className={clsx(
-          "list-item-bottom-wrapper w-100  py-2 px-2",
+          "list-item-edit-bottom-wrapper",
+          side === "B"
+            ? "list-item-edit-bottom-wrapper-b"
+            : "list-item-edit-bottom-wrapper-s",
+          "w-100  py-2 px-2",
           linkGenerated && "d-flex justify-content-between",
           !linkGenerated && "d-flex justify-content-center"
         )}
       >
         {linkGenerated && (
           <>
-            <div className={"list-item-bottom-wrapper-left"}>
+            <div className={"list-item-edit-bottom-wrapper-left"}>
               <Typography Tag={"h4"}>{url}</Typography>
             </div>
             <div
               className={
-                "list-item-bottom-wrapper-right d-flex justify-content-end"
+                "list-item-edit-bottom-wrapper-right d-flex justify-content-end"
               }
             >
               <Button onClick={() => copyToClipboard()} variant={"primary"}>

@@ -8,11 +8,12 @@
  * --------------------------------------------------------------
  */
 import React from "react";
+import clsx from "clsx";
 import "./styles.scss";
 import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 
-import { Badge } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import Globals from "../../../constants/Globals";
 
 const getColor = (inviteMode) => {
@@ -31,13 +32,27 @@ const getColor = (inviteMode) => {
 };
 
 const ListItem = (props) => {
-  const { id, title, subTitle, tags, tableNo, inviteMode, seats } = props;
+  const {
+    id,
+    title,
+    subTitle,
+    tags,
+    tableNo,
+    inviteMode,
+    seats,
+    side,
+    onClickGenerate = () => {},
+  } = props;
+
   return (
-    <div className={"list-item py-2"}>
+    <div
+      className={clsx(
+        "list-item my-2 py-2 px-2",
+        side === "B" ? "list-item-b" : "list-item-s"
+      )}
+    >
       <div
-        className={
-          "list-item-top-wrapper d-flex justify-content-between py-2 border-bottom border-secondary"
-        }
+        className={"list-item-top-wrapper d-flex justify-content-between py-2 "}
       >
         <div
           className={
@@ -62,7 +77,7 @@ const ListItem = (props) => {
               </>
             )}
           </div>
-          <div className={" text-center w-100"}>
+          <div className={"text-center w-100"}>
             <Typography Tag={"p"}>{`Seats`}</Typography>
             <Typography Tag={"h3"}>{seats}</Typography>
           </div>
@@ -73,9 +88,10 @@ const ListItem = (props) => {
           </div>
         </div>
         <div
-          className={
-            "list-item-top list-item-top-wrapper-mid d-flex align-content-between flex-wrap  px-2"
-          }
+          className={clsx(
+            "list-item-top list-item-top-wrapper-mid d-flex align-content-between flex-wrap  px-2",
+            ""
+          )}
         >
           <Typography Tag={"h2"} className={"w-100"}>
             {title}

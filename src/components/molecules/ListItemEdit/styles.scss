@@ -8,7 +8,14 @@
  * --------------------------------------------------------------
  */
 
-.list-item {
+.list-item-edit {
+  &-b {
+    background-color: #e9f1f2;
+  }
+  &-s {
+    background-color: #ebdde9;
+  }
+  border-radius: 10px;
   &-top {
     &-wrapper {
       &-left {
@@ -27,7 +34,12 @@
   &-bottom {
     &-wrapper {
       width: 100%;
-      background-color: aliceblue;
+      &-s {
+        background-color: #d61ebc;
+      }
+      &-b {
+        background-color: #0aacc2;
+      }
 
       &-left {
         width: 60%;
