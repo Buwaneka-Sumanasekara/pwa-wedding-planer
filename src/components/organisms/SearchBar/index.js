@@ -13,6 +13,7 @@ import { Form, Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 import FilterModal from "../../molecules/Filter";
+import Globals from "../../../constants/Globals";
 
 import "./styles.scss";
 
@@ -38,7 +39,7 @@ const SearchBar = (props) => {
 
   const onChangeSide = (side) => {
     setSelectedSide(side);
-    setSelectedFilters([]);
+    setSelectedFilters([{ key: "side", value: side, needToShow: false }]);
     onFiltersChange([{ key: "side", value: side, needToShow: false }]);
   };
 
@@ -53,7 +54,6 @@ const SearchBar = (props) => {
           (obj) => obj.key !== "side"
         );
         setFilters(FiltersExcept_side);
-        console.log(side.values[0]);
         onChangeSide(side.values[0]);
       });
     }
@@ -72,9 +72,11 @@ const SearchBar = (props) => {
     setVisibleFilterModal(true);
   };
 
-  const onFilterSelectedTags = (arFilters) => {
-    setSelectedFilters(arFilters);
-    onFiltersChange(arFilters);
+  const onFilterSelectedTags = (arFilters = []) => {
+    const ar_mod = arFilters.concat(SelectedFilters);
+    console.log("SelectedFilters", SelectedFilters, "new", arFilters);
+    setSelectedFilters(Globals.getUniqueArray(ar_mod, "key"));
+    onFiltersChange(Globals.getUniqueArray(ar_mod, "key"));
   };
 
   const onRemoveTag = (tag) => {
@@ -127,17 +129,22 @@ const SearchBar = (props) => {
         </div>
 
         <div className={"tags-wrapper py-2"}>
-          {SelectedFilters.map((v, i) => (
-            <Button
-              key={`filter_but${i}`}
-              size="sm"
-              variant={"light"}
-              onClick={() => onRemoveTag(v)}
-            >
-              <Icon icon={"price-tag"} />{" "}
-              <Typography Tag={"span"}>{v.value.name}</Typography>
-            </Button>
-          ))}
+          {SelectedFilters.map((v, i) => {
+            if (v.key !== "side") {
+              return (
+                <Button
+                  key={`filter_but${i}`}
+                  size="sm"
+                  variant={"light"}
+                  onClick={() => onRemoveTag(v)}
+                >
+                  <Icon icon={"price-tag"} />{" "}
+                  <Typography Tag={"span"}>{v.value.name}</Typography>
+                </Button>
+              );
+            }
+            return null;
+          })}
         </div>
       </div>
       {SelectedSide !== undefined && SelectedSide.name !== undefined && (
@@ -147,6 +154,7 @@ const SearchBar = (props) => {
           onClose={() => setVisibleFilterModal(false)}
           onFilterDoneFilter={(ar_filters) => onFilterSelectedTags(ar_filters)}
           side={SelectedSide.id}
+          prop_SelectedFilters={SelectedFilters}
         />
       )}
     </>

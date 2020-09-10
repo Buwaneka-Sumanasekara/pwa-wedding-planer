@@ -31,7 +31,7 @@ const getColor = (inviteMode) => {
 };
 
 const ListItem = (props) => {
-  const { key, title, subTitle, tags, tableNo, inviteMode, seats } = props;
+  const { id, title, subTitle, tags, tableNo, inviteMode, seats } = props;
   return (
     <div className={"list-item py-2"}>
       <div
@@ -85,11 +85,7 @@ const ListItem = (props) => {
           </Typography>
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
             {tags.map((v, i) => (
-              <Badge
-                key={`${key}tags${i}`}
-                className={"mr-1"}
-                variant="primary"
-              >
+              <Badge key={`${id}tags${i}`} className={"mr-1"} variant="primary">
                 {v}
               </Badge>
             ))}

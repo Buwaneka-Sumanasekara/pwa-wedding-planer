@@ -65,7 +65,7 @@ const GuestPage = () => {
   };
 
   const onFilterChange = (ar_filter_values) => {
-    console.log("filter changes", ar_filter_values);
+    console.log("filtered values", ar_filter_values);
     const req = Globals.FilterValuesToReqBody(ar_filter_values);
     FilterGuestAPI(req);
   };
@@ -75,7 +75,6 @@ const GuestPage = () => {
   };
 
   const FilteredResult = () => {
-    console.log(result);
     const filtered_res = Globals.FilterByText(
       result,
       filterTxt,
@@ -88,6 +87,7 @@ const GuestPage = () => {
   const renderResultItem = (v, i) => {
     return (
       <ListItem
+        id={`result_item${i}`}
         key={`result_item${i}`}
         inviteMode={v.inviteMode}
         title={v["name"]}

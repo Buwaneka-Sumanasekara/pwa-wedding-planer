@@ -8,7 +8,7 @@
  * --------------------------------------------------------------
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Accordion, Button } from "react-bootstrap";
 import Icon from "../../atoms/Icon";
 import FilterSection from "../../atoms/FilterSection";
@@ -23,9 +23,15 @@ const Filter = (props) => {
     onFilterDoneFilter = () => {},
     show,
     onClose,
+    prop_SelectedFilters,
   } = props;
 
   const [SelectedFilters, setSelectedFilters] = useState([]);
+
+  useEffect(() => {
+    setSelectedFilters([]);
+    console.log("value changed!");
+  }, [prop_SelectedFilters]);
 
   const onConfirmFilters = () => {
     onFilterDoneFilter(SelectedFilters);

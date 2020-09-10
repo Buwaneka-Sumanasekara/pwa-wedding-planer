@@ -8,6 +8,8 @@
  * --------------------------------------------------------------
  */
 
+import * as _ from "lodash";
+
 const InviteMode = {
   FAMILY: "FAMILY",
   MR: "MR",
@@ -42,8 +44,13 @@ const FilterValuesToReqBody = (ar) => {
   return result;
 };
 
+const getUniqueArray = (ar, key) => {
+  return _.uniqBy(ar, key);
+};
+
 export default {
   InviteMode: InviteMode,
   FilterByText: FilterByText,
   FilterValuesToReqBody: FilterValuesToReqBody,
+  getUniqueArray: getUniqueArray,
 };

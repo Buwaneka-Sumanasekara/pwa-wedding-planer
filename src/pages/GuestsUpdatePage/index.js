@@ -59,7 +59,6 @@ const GuestUpdatePage = () => {
   };
 
   const FilteredResult = () => {
-    console.log(result);
     const filtered_res = Globals.FilterByText(
       result,
       filterTxt,
