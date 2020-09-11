@@ -24,10 +24,14 @@ const ResultBox = (props) => {
   return (
     <>
       {isLoading && <LoadingItem isLoading={true} />}
-      {!isLoading &&
-        ardata.map((value, i) => {
-          return renderItem(value, i);
-        })}
+      {!isLoading && (
+        <>
+          <div>{`Results Found ( ${ardata.length} )`}</div>
+          {ardata.map((value, i) => {
+            return renderItem(value, i);
+          })}
+        </>
+      )}
     </>
   );
 };

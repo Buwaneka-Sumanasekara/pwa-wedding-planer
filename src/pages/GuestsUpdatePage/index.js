@@ -18,6 +18,7 @@ import ListItemEdit from "../../components/molecules/ListItemEdit";
 
 import "./styles.scss";
 import Globals from "../../constants/Globals";
+import Utils from "../../utils";
 
 import api from "../../api";
 import _ from "lodash";
@@ -37,7 +38,7 @@ const GuestUpdatePage = () => {
 
   const FilterGuestAPI = (showLoading = true) => {
     console.log("filter values:FilterGuestAPI", filterValues);
-    const req = Globals.MakeFilterValuesToReqBody(filterValues);
+    const req = Utils.MakeFilterValuesToReqBody(filterValues);
     if (source_guests && filterValues.length > 0) {
       setLoading(showLoading);
       source_guests
@@ -67,7 +68,7 @@ const GuestUpdatePage = () => {
   };
 
   const FilteredResult = () => {
-    let filtered_res = Globals.FilterByText(
+    let filtered_res = Utils.FilterByText(
       result,
       filterTxt,
       "name",
@@ -83,7 +84,7 @@ const GuestUpdatePage = () => {
       .createInvitation({ guestId: guestId })
       .then((res) => {
         console.log(res);
-        const ar = Globals.modifyArray(result, "id", res.data["data"]);
+        const ar = Utils.modifyArray(result, "id", res.data["data"]);
         setResults(ar);
         console.log("upar", ar);
         setLoading(false);

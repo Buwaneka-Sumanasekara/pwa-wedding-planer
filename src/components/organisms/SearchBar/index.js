@@ -14,6 +14,7 @@ import Icon from "../../atoms/Icon";
 import Typography from "../../atoms/Typography";
 import FilterModal from "../../molecules/Filter";
 import Globals from "../../../constants/Globals";
+import Utils from "../../../utils";
 
 import "./styles.scss";
 
@@ -75,8 +76,8 @@ const SearchBar = (props) => {
   const onFilterSelectedTags = (arFilters = []) => {
     const ar_mod = arFilters.concat(SelectedFilters);
     console.log("SelectedFilters", SelectedFilters, "new", arFilters);
-    setSelectedFilters(Globals.getUniqueArray(ar_mod, "key"));
-    onFiltersChange(Globals.getUniqueArray(ar_mod, "key"));
+    setSelectedFilters(Utils.getUniqueArray(ar_mod, "key"));
+    onFiltersChange(Utils.getUniqueArray(ar_mod, "key"));
   };
 
   const onRemoveTag = (tag) => {

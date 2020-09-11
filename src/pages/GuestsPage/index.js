@@ -15,9 +15,11 @@ import PageTemplate from "../../components/templates/BlankTemplate";
 import SearchBar from "../../components/organisms/SearchBar";
 import ResultsBox from "../../components/organisms/ResultsBox";
 import ListItem from "../../components/molecules/ListItem";
+import GuestCountUpdateModal from "../../components/molecules/GuestCountUpdateModal";
 
 import "./styles.scss";
 import Globals from "../../constants/Globals";
+import Utils from "../../utils";
 
 import api from "../../api";
 import _ from "lodash";
@@ -29,6 +31,8 @@ const GuestPage = () => {
   const [isLoading, setLoading] = useState(false);
   const [filterTxt, setFilterText] = useState("");
   const [filterValues, setfilterValues] = useState([]);
+  const [SelectedGuest, setSelectedGuest] = useState(null);
+  const [ShowModal, setShowModal] = useState(false);
 
   useEffect(() => {
     FilterGuestAPI();
@@ -36,7 +40,7 @@ const GuestPage = () => {
 
   const FilterGuestAPI = (showLoading = true) => {
     console.log("filter values:FilterGuestAPI", filterValues);
-    const req = Globals.MakeFilterValuesToReqBody(filterValues);
+    const req = Utils.MakeFilterValuesToReqBody(filterValues);
     if (source_guests && filterValues.length > 0) {
       setLoading(showLoading);
       source_guests
@@ -66,7 +70,7 @@ const GuestPage = () => {
   };
 
   const FilteredResult = () => {
-    let filtered_res = Globals.FilterByText(
+    let filtered_res = Utils.FilterByText(
       result,
       filterTxt,
       "name",
@@ -74,6 +78,12 @@ const GuestPage = () => {
     );
 
     return filtered_res;
+  };
+
+  const onPressListItem = (v) => {
+    console.log(v);
+    setSelectedGuest(v);
+    setShowModal(true);
   };
 
   const renderResultItem = (v, i) => {
@@ -91,6 +101,8 @@ const GuestPage = () => {
         refCode={v.refCode}
         linkGenerated={v.linkGenerated}
         side={v.side}
+        attendedCount={v.attendedCount}
+        onClickItem={() => onPressListItem(v)}
       />
     );
   };
@@ -117,6 +129,11 @@ const GuestPage = () => {
           </Col>
         </Row>
       </Container>
+      <GuestCountUpdateModal
+        show={ShowModal}
+        onClose={() => setShowModal(false)}
+        guest={SelectedGuest}
+      />
     </PageTemplate>
   );
 };

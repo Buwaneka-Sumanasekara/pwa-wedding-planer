@@ -12,4 +12,7 @@ export default (axios, base) => ({
   filterGuests: (data) => {
     return axios.post(`${base}/`, data);
   },
+  updateGuest: (data) => {
+    return axios.put(`${base}/${data.id}`, data);
+  },
 });
