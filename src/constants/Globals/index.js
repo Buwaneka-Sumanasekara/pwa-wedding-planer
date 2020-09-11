@@ -18,6 +18,13 @@ const InviteMode = {
   MRS: "MRS",
 };
 
+const ResultsModes = {
+  ALL: "ALL",
+  ARRIVED: "ARRIVED",
+  NOT_ARRIVED: "NOT_ARRIVED",
+};
+
 export default {
   InviteMode: InviteMode,
+  ResultsModes: ResultsModes,
 };

@@ -28,6 +28,21 @@ const FilterByText = (data = [], txt = "", key = "name", key2 = "nickName") => {
   });
   return result;
 };
+
+const FilterByArrival = (data = [], type = "") => {
+  const result = data.filter((v) => {
+    if (type === Globals.ResultsModes.ARRIVED) {
+      return v.attendedCount > 0;
+    }
+    if (type === Globals.ResultsModes.NOT_ARRIVED) {
+      return v.attendedCount === 0;
+    } else {
+      return true;
+    }
+  });
+  return result;
+};
+
 const MakeMakeFilterValuesToReqBody = (ar) => {
   const result = ar.reduce((map, obj) => {
     map[obj.key] = obj.value.id;
@@ -91,4 +106,5 @@ export default {
   modifyArray: modifyArray,
   getGuestFullName: getGuestFullName,
   getTitleCase: getTitleCase,
+  FilterByArrival: FilterByArrival,
 };

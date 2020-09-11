@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import { Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import LoadingItem from "../../atoms/LoadingItem";
 
 import "./styles.scss";
@@ -21,12 +22,16 @@ const ResultBox = (props) => {
       return <div>{""}</div>;
     },
   } = props;
+
   return (
     <>
       {isLoading && <LoadingItem isLoading={true} />}
       {!isLoading && (
         <>
-          <div>{`Results Found ( ${ardata.length} )`}</div>
+          <Row>
+            <Col>{`Results Found ( ${ardata.length} )`}</Col>
+          </Row>
+
           {ardata.map((value, i) => {
             return renderItem(value, i);
           })}

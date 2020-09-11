@@ -9,7 +9,14 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ButtonGroup,
+  Button,
+  ToggleButton,
+} from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 
 import SearchBar from "../../components/organisms/SearchBar";
@@ -26,6 +33,8 @@ import _ from "lodash";
 
 const source_guests = _.get(api, "guests");
 
+const ResultsModes = Globals.ResultsModes;
+
 const GuestPage = () => {
   const [result, setResults] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -33,6 +42,8 @@ const GuestPage = () => {
   const [filterValues, setfilterValues] = useState([]);
   const [SelectedGuest, setSelectedGuest] = useState(null);
   const [ShowModal, setShowModal] = useState(false);
+  const [isDisableModal, setDisableModal] = useState(false);
+  const [ArrivalMode, setArrivalMode] = useState("");
 
   useEffect(() => {
     FilterGuestAPI();
@@ -77,6 +88,7 @@ const GuestPage = () => {
       "nickName"
     );
 
+    filtered_res = Utils.FilterByArrival(filtered_res, ArrivalMode);
     return filtered_res;
   };
 
@@ -84,6 +96,30 @@ const GuestPage = () => {
     console.log(v);
     setSelectedGuest(v);
     setShowModal(true);
+  };
+
+  const onCountUpdate = (guest) => {
+    console.log(`count marked`, guest);
+
+    //:TODO
+    if (source_guests !== null) {
+      setDisableModal(true);
+      source_guests
+        .updateGuest(guest)
+        .then((res) => {
+          console.log("res updateGuest", res);
+          const ar = Utils.modifyArray(result, "id", guest);
+          setResults(ar);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setSelectedGuest(null);
+          setDisableModal(false);
+          setShowModal(false);
+        });
+    }
   };
 
   const renderResultItem = (v, i) => {
@@ -119,7 +155,43 @@ const GuestPage = () => {
             />
           </Col>
         </Row>
-        <Row className={"py-3"}>
+        {!isLoading && (
+          <Row className={"py-2"}>
+            <Col>
+              <ButtonGroup size="sm" toggle>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={ArrivalMode === ResultsModes.ALL}
+                  value={ResultsModes.ALL}
+                  onChange={() => setArrivalMode(ResultsModes.ALL)}
+                >
+                  All
+                </ToggleButton>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={ArrivalMode === ResultsModes.ARRIVED}
+                  value={ResultsModes.ARRIVED}
+                  onChange={() => setArrivalMode(ResultsModes.ARRIVED)}
+                >
+                  Arrived
+                </ToggleButton>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={ArrivalMode === ResultsModes.NOT_ARRIVED}
+                  value={ResultsModes.NOT_ARRIVED}
+                  onChange={() => setArrivalMode(ResultsModes.NOT_ARRIVED)}
+                >
+                  Not Arrived
+                </ToggleButton>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        )}
+
+        <Row>
           <Col>
             <ResultsBox
               ardata={res}
@@ -133,6 +205,8 @@ const GuestPage = () => {
         show={ShowModal}
         onClose={() => setShowModal(false)}
         guest={SelectedGuest}
+        onConfirmCount={(guest) => onCountUpdate(guest)}
+        isDisableModal={isDisableModal}
       />
     </PageTemplate>
   );
