@@ -15,6 +15,7 @@ import Typography from "../../atoms/Typography";
 
 import { Badge, Button } from "react-bootstrap";
 import Globals from "../../../constants/Globals";
+import copy from "copy-to-clipboard";
 
 const getColor = (inviteMode) => {
   switch (inviteMode) {
@@ -49,12 +50,28 @@ const ListItemEdit = (props) => {
   const url = `${window.location.origin}/invitation/${refCode}`;
 
   const copyToClipboard = () => {
-    const textField = document.createElement("textarea");
-    textField.innerText = url;
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand("copy");
-    textField.remove();
+    let txt = `\bSulari 💍 Buwaneka\b\n\n`;
+    txt += `Hi ${title},\n`;
+    txt +=
+      "with a lot of pleasure we would like to invite you to our wedding ceremony and bless us with your presence.\n";
+    txt += "You can check the invitation card by visiting below link.\n";
+    txt += "Thank you.\n\n";
+    txt += url;
+
+    copy(txt, {
+      debug: true,
+      message: "Press #{key} to copy",
+    });
+
+    // const textField = document.createElement("textarea");
+
+    // txt = txt.replace(/\n/g, "\r\n");
+    // textField.innerText = txt;
+
+    // document.body.appendChild(textField);
+    // textField.select();
+    // document.execCommand("copy");
+    // textField.remove();
   };
 
   return (
