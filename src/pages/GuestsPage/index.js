@@ -9,9 +9,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { useReactPWAInstall } from "react-pwa-install";
-
+import { Container, Row, Col } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 
 import SearchBar from "../../components/organisms/SearchBar";
@@ -24,33 +22,27 @@ import Globals from "../../constants/Globals";
 import api from "../../api";
 import _ from "lodash";
 
-const source = _.get(api, "guests");
+const source_guests = _.get(api, "guests");
 
 const GuestPage = () => {
-  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
-
   const [result, setResults] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [filterTxt, setFilterText] = useState("");
+  const [filterValues, setfilterValues] = useState([]);
 
-  const handleClick = () => {
-    pwaInstall({
-      title: "Install Wedding Planner App",
-      logo: "/logo192.png",
-      description: "You can install the Wedding Planner App ",
-    })
-      .then(() =>
-        alert("App installed successfully or instructions for install shown")
-      )
-      .catch(() => {});
-  };
+  useEffect(() => {
+    FilterGuestAPI();
+  }, [filterValues]);
 
-  const FilterGuestAPI = (req = {}) => {
-    if (source) {
-      setLoading(true);
-      source
+  const FilterGuestAPI = (showLoading = true) => {
+    console.log("filter values:FilterGuestAPI", filterValues);
+    const req = Globals.MakeFilterValuesToReqBody(filterValues);
+    if (source_guests && filterValues.length > 0) {
+      setLoading(showLoading);
+      source_guests
         .filterGuests(req)
         .then((res) => {
+          console.log("res", res);
           setLoading(false);
           if (res.data["data"] !== undefined) {
             setResults(res.data["data"]);
@@ -65,9 +57,8 @@ const GuestPage = () => {
   };
 
   const onFilterChange = (ar_filter_values) => {
-    console.log("filtered values", ar_filter_values);
-    const req = Globals.FilterValuesToReqBody(ar_filter_values);
-    FilterGuestAPI(req);
+    console.log("filter changed", ar_filter_values);
+    setfilterValues(ar_filter_values);
   };
 
   const onInputChange = (txt) => {
@@ -75,16 +66,18 @@ const GuestPage = () => {
   };
 
   const FilteredResult = () => {
-    const filtered_res = Globals.FilterByText(
+    let filtered_res = Globals.FilterByText(
       result,
       filterTxt,
       "name",
       "nickName"
     );
+
     return filtered_res;
   };
 
   const renderResultItem = (v, i) => {
+    //console.log(v);
     return (
       <ListItem
         id={`result_item${i}`}
@@ -95,6 +88,8 @@ const GuestPage = () => {
         tags={[v.tag1, v.tag2, v.tag3]}
         tableNo={v.tableNo}
         seats={v.seats}
+        refCode={v.refCode}
+        linkGenerated={v.linkGenerated}
         side={v.side}
       />
     );
@@ -106,17 +101,6 @@ const GuestPage = () => {
       <Container className={"py-3"}>
         <Row>
           <Col>
-            {/* {supported() && !isInstalled() && (
-              <Button
-                variant="secondary"
-                className={"mb-2"}
-                size="lg"
-                block
-                onClick={handleClick}
-              >
-                Install app
-              </Button>
-            )} */}
             <SearchBar
               onFiltersChange={(v) => onFilterChange(v)}
               onSearchInputChange={(txt) => onInputChange(txt)}

@@ -36,8 +36,9 @@ const GuestUpdatePage = () => {
   }, [filterValues]);
 
   const FilterGuestAPI = (showLoading = true) => {
-    const req = Globals.FilterValuesToReqBody(filterValues);
-    if (source_guests) {
+    console.log("filter values:FilterGuestAPI", filterValues);
+    const req = Globals.MakeFilterValuesToReqBody(filterValues);
+    if (source_guests && filterValues.length > 0) {
       setLoading(showLoading);
       source_guests
         .filterGuests(req)
@@ -66,12 +67,13 @@ const GuestUpdatePage = () => {
   };
 
   const FilteredResult = () => {
-    const filtered_res = Globals.FilterByText(
+    let filtered_res = Globals.FilterByText(
       result,
       filterTxt,
       "name",
       "nickName"
     );
+
     return filtered_res;
   };
 
@@ -81,7 +83,11 @@ const GuestUpdatePage = () => {
       .createInvitation({ guestId: guestId })
       .then((res) => {
         console.log(res);
-        setTimeout(() => FilterGuestAPI(), 3000);
+        const ar = Globals.modifyArray(result, "id", res.data["data"]);
+        setResults(ar);
+        console.log("upar", ar);
+        setLoading(false);
+        //setTimeout(() => FilterGuestAPI(false), 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +96,7 @@ const GuestUpdatePage = () => {
   };
 
   const renderResultItem = (v, i) => {
-    console.log(v);
+    //console.log(v);
     return (
       <ListItemEdit
         id={`result_item${i}`}

@@ -36,7 +36,7 @@ const FilterByText = (data = [], txt = "", key = "name", key2 = "nickName") => {
   });
   return result;
 };
-const FilterValuesToReqBody = (ar) => {
+const MakeMakeFilterValuesToReqBody = (ar) => {
   const result = ar.reduce((map, obj) => {
     map[obj.key] = obj.value.id;
     return map;
@@ -48,9 +48,26 @@ const getUniqueArray = (ar, key) => {
   return _.uniqBy(ar, key);
 };
 
+const modifyArray = (ar, search_key, newObj) => {
+  const mdar = ar;
+
+  const index = _.findIndex(mdar, (o) => {
+    return o[search_key] == newObj[search_key];
+  });
+
+  // Replace item at index using native splice
+  if (index > -1) {
+    const upObj = { ...mdar[index], ...newObj };
+    console.log("mod", upObj);
+    mdar.splice(index, 1, upObj);
+  }
+  return mdar;
+};
+
 export default {
   InviteMode: InviteMode,
   FilterByText: FilterByText,
-  FilterValuesToReqBody: FilterValuesToReqBody,
+  MakeFilterValuesToReqBody: MakeMakeFilterValuesToReqBody,
   getUniqueArray: getUniqueArray,
+  modifyArray: modifyArray,
 };

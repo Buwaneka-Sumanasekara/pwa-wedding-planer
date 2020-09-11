@@ -51,10 +51,10 @@ const ListItemEdit = (props) => {
 
   const copyToClipboard = () => {
     let txt = `\bSulari 💍 Buwaneka\b\n\n`;
-    txt += `Hi ${title},\n`;
+    txt += `Hi ${title},\n\n`;
     txt +=
-      "with a lot of pleasure we would like to invite you to our wedding ceremony and bless us with your presence.\n";
-    txt += "You can check the invitation card by visiting below link.\n";
+      "with a lot of pleasure, We would like to invite you to our wedding ceremony and bless us with your presence.\n";
+    txt += "You can check the invitation card by visiting the below link.\n\n";
     txt += "Thank you.\n\n";
     txt += url;
 
