@@ -24,7 +24,14 @@ const ResultsModes = {
   NOT_ARRIVED: "NOT_ARRIVED",
 };
 
+const NotificationPermType = {
+  GRANTED: "granted",
+  DENIED: "denied",
+  DEFAULT: "default",
+};
+
 export default {
   InviteMode: InviteMode,
   ResultsModes: ResultsModes,
+  NotificationPermType: NotificationPermType,
 };

@@ -80,7 +80,7 @@ const getGuestFullName = (guest) => {
   if (
     GuestInviteMode === InviteModes.MR ||
     GuestInviteMode === InviteModes.MS ||
-    GuestInviteMode === InviteModes.MS ||
+    GuestInviteMode === InviteModes.MRS ||
     GuestInviteMode === InviteModes.MR_MRS
   ) {
     prefix = `${getTitleCase(GuestInviteMode.toLowerCase())}.`;

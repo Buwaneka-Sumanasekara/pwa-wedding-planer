@@ -11,6 +11,7 @@
     "bootstrap": "^4.5.2",
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.3.1",
+    "firebase": "^7.20.0",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
