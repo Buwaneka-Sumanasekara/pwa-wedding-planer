@@ -161,9 +161,11 @@ const GuestUpdatePage = () => {
           </Col>
         </Row>
         <Row>
-          <marquee>
-            <small>{"Mark checked after given the invitation"}</small>
-          </marquee>
+          <Col>
+            <marquee>
+              <small>{"Mark checked after given the invitation"}</small>
+            </marquee>
+          </Col>
         </Row>
         {!isLoading && (
           <Row className={"py-2"}>

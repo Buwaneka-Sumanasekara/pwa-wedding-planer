@@ -154,9 +154,11 @@ const GuestPage = () => {
           </Col>
         </Row>
         <Row>
-          <marquee>
-            <small>{"Mark arrival by clicking on the guest name"}</small>
-          </marquee>
+          <Col>
+            <marquee>
+              <small>{"Mark arrival by clicking on the guest name"}</small>
+            </marquee>
+          </Col>
         </Row>
         {!isLoading && (
           <Row className={"py-2"}>
