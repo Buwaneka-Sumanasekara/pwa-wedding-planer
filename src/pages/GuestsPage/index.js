@@ -157,6 +157,10 @@ const GuestPage = () => {
         </Row>
         {!isLoading && (
           <Row className={"py-2"}>
+            <marquee>
+              <small>{"Mark arrival by clicking on the guest name"}</small>
+            </marquee>
+
             <Col>
               <ButtonGroup size="sm" toggle>
                 <ToggleButton

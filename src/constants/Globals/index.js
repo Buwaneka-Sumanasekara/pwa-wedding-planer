@@ -30,8 +30,15 @@ const NotificationPermType = {
   DEFAULT: "default",
 };
 
+const ResultsModes_invited = {
+  ALL: "",
+  INVITED: "YES",
+  NOT_INVITED: "NO",
+};
+
 export default {
   InviteMode: InviteMode,
   ResultsModes: ResultsModes,
   NotificationPermType: NotificationPermType,
+  ResultsModes_invited: ResultsModes_invited,
 };

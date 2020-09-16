@@ -9,7 +9,14 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ButtonGroup,
+  Button,
+  ToggleButton,
+} from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 
 import SearchBar from "../../components/organisms/SearchBar";
@@ -23,6 +30,8 @@ import Utils from "../../utils";
 import api from "../../api";
 import _ from "lodash";
 
+const ResultsModes_invited = Globals.ResultsModes_invited;
+
 const source_guests = _.get(api, "guests");
 const source_invitations = _.get(api, "invitation");
 
@@ -31,6 +40,7 @@ const GuestUpdatePage = () => {
   const [isLoading, setLoading] = useState(false);
   const [filterTxt, setFilterText] = useState("");
   const [filterValues, setfilterValues] = useState([]);
+  const [Invited, setInvitedMode] = useState("");
 
   useEffect(() => {
     FilterGuestAPI();
@@ -74,6 +84,8 @@ const GuestUpdatePage = () => {
       "name",
       "nickName"
     );
+
+    filtered_res = Utils.FilterByInvited(filtered_res, Invited);
 
     return filtered_res;
   };
@@ -130,6 +142,46 @@ const GuestUpdatePage = () => {
             />
           </Col>
         </Row>
+        {!isLoading && (
+          <Row className={"py-2"}>
+            <marquee>
+              <small>{"Generate link to mark as Invited"}</small>
+            </marquee>
+            <Col>
+              <ButtonGroup size="sm" toggle>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={Invited === ResultsModes_invited.ALL}
+                  value={ResultsModes_invited.ALL}
+                  onChange={() => setInvitedMode(ResultsModes_invited.ALL)}
+                >
+                  All
+                </ToggleButton>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={Invited === ResultsModes_invited.INVITED}
+                  value={ResultsModes_invited.INVITED}
+                  onChange={() => setInvitedMode(ResultsModes_invited.INVITED)}
+                >
+                  Invited
+                </ToggleButton>
+                <ToggleButton
+                  variant="secondary"
+                  type="radio"
+                  checked={Invited === ResultsModes_invited.NOT_INVITED}
+                  value={ResultsModes_invited.NOT_INVITED}
+                  onChange={() =>
+                    setInvitedMode(ResultsModes_invited.NOT_INVITED)
+                  }
+                >
+                  Haven't Invited
+                </ToggleButton>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        )}
         <Row className={"py-3"}>
           <Col>
             <ResultsBox

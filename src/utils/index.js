@@ -43,6 +43,18 @@ const FilterByArrival = (data = [], type = "") => {
   return result;
 };
 
+const FilterByInvited = (data = [], type = "") => {
+  const result = data.filter((v) => {
+    if (type === Globals.ResultsModes_invited.INVITED) {
+      return v.linkGenerated === true;
+    } else if (type === Globals.ResultsModes_invited.NOT_INVITED) {
+      return v.linkGenerated === false;
+    }
+    return true;
+  });
+  return result;
+};
+
 const MakeMakeFilterValuesToReqBody = (ar) => {
   const result = ar.reduce((map, obj) => {
     map[obj.key] = obj.value.id;
@@ -107,4 +119,5 @@ export default {
   getGuestFullName: getGuestFullName,
   getTitleCase: getTitleCase,
   FilterByArrival: FilterByArrival,
+  FilterByInvited: FilterByInvited,
 };
