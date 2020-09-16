@@ -142,11 +142,13 @@ const GuestUpdatePage = () => {
             />
           </Col>
         </Row>
+        <Row>
+          <marquee>
+            <small>{"Generate link to mark as Invited"}</small>
+          </marquee>
+        </Row>
         {!isLoading && (
           <Row className={"py-2"}>
-            <marquee>
-              <small>{"Generate link to mark as Invited"}</small>
-            </marquee>
             <Col>
               <ButtonGroup size="sm" toggle>
                 <ToggleButton
