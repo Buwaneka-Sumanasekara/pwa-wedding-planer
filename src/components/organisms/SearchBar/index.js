@@ -86,6 +86,10 @@ const SearchBar = (props) => {
     onFiltersChange(arRemianTags);
   };
 
+  const _onRefresh = () => {
+    window.location.reload(false);
+  };
+
   return (
     <>
       <div className={"search-component px-2"}>
@@ -125,6 +129,12 @@ const SearchBar = (props) => {
                     );
                   })}
                 </Dropdown>
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => _onRefresh()}
+                >
+                  <Icon icon={"loop2"} />
+                </Button>
               </>
             )}
         </div>
