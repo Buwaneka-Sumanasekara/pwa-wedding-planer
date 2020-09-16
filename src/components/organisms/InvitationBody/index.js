@@ -97,16 +97,11 @@ const InvitationBody = (props) => {
         <Row>
           <Col>
             <Typography Tag={"p"} className={""}>
-              <mark>
-                <strong>
-                  {" "}
-                  {`${
-                    GuestInfo.guest.tableNo !== ""
-                      ? `You have a reserved table`
-                      : ""
-                  }`}{" "}
-                </strong>
-              </mark>
+              {GuestInfo.guest.tableNo !== "" && (
+                <mark>
+                  <strong>[ You have a reserved table ]</strong>
+                </mark>
+              )}
             </Typography>
           </Col>
         </Row>
