@@ -133,7 +133,7 @@ const ListItemEdit = (props) => {
           <Typography Tag={"p"} className={"w-100"}>
             {subTitle}
           </Typography>
-          <Typography Tag={"small"} className={"w-100"}>
+          <Typography Tag={"h3"} className={"w-100"}>
             {`${contact1}  ${contact2 !== "" ? ` / ${contact2}` : ""}`}
           </Typography>
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
