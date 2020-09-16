@@ -139,10 +139,14 @@ const ListItem = (props) => {
           <div
             className={"list-item-top list-item-top-wrapper-right text-center"}
           >
-            <Typography Tag={"h4"}>{"Table No"}</Typography>
-            <Typography Tag={"h1"}>{`${
-              tableNo > 0 ? tableNo : ""
-            }`}</Typography>
+            {tableNo !== "" && (
+              <>
+                <Typography Tag={"h4"}>{"Reserved Table"}</Typography>
+                <Typography Tag={"h1"}>{`${
+                  tableNo !== "" ? "YES" : "-"
+                }`}</Typography>
+              </>
+            )}
           </div>
         </div>
       </div>

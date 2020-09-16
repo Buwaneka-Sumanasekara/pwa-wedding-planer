@@ -37,6 +37,8 @@ const ListItemEdit = (props) => {
     id,
     title,
     subTitle,
+    contact1 = "",
+    contact2 = "",
     tags,
     tableNo,
     inviteMode,
@@ -131,6 +133,9 @@ const ListItemEdit = (props) => {
           <Typography Tag={"p"} className={"w-100"}>
             {subTitle}
           </Typography>
+          <Typography Tag={"small"} className={"w-100"}>
+            {`${contact1}  ${contact2 !== "" ? ` / ${contact2}` : ""}`}
+          </Typography>
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
             {tags.map((v, i) => (
               <Badge key={`${id}tags${i}`} className={"mr-1"} variant="primary">
@@ -142,8 +147,14 @@ const ListItemEdit = (props) => {
         <div
           className={"list-item-top list-item-top-wrapper-right text-center"}
         >
-          <Typography Tag={"h4"}>{"Table No"}</Typography>
-          <Typography Tag={"h1"}>{`${tableNo > 0 ? tableNo : ""}`}</Typography>
+          {tableNo !== "" && (
+            <>
+              <Typography Tag={"h4"}>{"Reserved Table"}</Typography>
+              <Typography Tag={"h1"}>{`${
+                tableNo !== "" ? "YES" : "-"
+              }`}</Typography>
+            </>
+          )}
         </div>
       </div>
       <div

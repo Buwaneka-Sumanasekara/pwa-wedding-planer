@@ -112,6 +112,8 @@ const GuestUpdatePage = () => {
         linkGenerated={v.linkGenerated}
         onClickGenerate={() => handleOnGenerateLink(v.id)}
         side={v.side}
+        contact1={v.contact1}
+        contact2={v.contact2}
       />
     );
   };
