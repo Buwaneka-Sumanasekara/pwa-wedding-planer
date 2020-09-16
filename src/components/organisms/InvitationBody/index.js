@@ -101,10 +101,9 @@ const InvitationBody = (props) => {
                 <strong>
                   {" "}
                   {`${
-                    GuestInfo.guest.tableNo !== "" &&
-                    GuestInfo.guest.tableNo !== 0
-                      ? `Table No: ${GuestInfo.guest.tableNo}`
-                      : "- Your Table-no will arrange soon -"
+                    GuestInfo.guest.tableNo !== ""
+                      ? `You have a reserved table : ${GuestInfo.guest.tableNo}`
+                      : ""
                   }`}{" "}
                 </strong>
               </mark>
