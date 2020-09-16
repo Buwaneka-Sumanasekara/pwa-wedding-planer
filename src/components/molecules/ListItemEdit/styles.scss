@@ -28,6 +28,14 @@
       }
       &-right {
         width: 30%;
+        .btn .checked {
+          color: green !important;
+          font-size: 20px;
+        }
+        .btn .not-checked {
+          color: gray !important;
+          font-size: 20px;
+        }
       }
     }
   }

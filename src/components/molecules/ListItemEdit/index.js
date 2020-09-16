@@ -35,6 +35,7 @@ const getColor = (inviteMode) => {
 const ListItemEdit = (props) => {
   const {
     id,
+    guestObj,
     title,
     subTitle,
     contact1 = "",
@@ -46,10 +47,17 @@ const ListItemEdit = (props) => {
     refCode,
     linkGenerated,
     side,
+    invited = false,
     onClickGenerate = () => {},
+    markAsInvited = () => {},
   } = props;
 
   const url = `${window.location.origin}/invitation/${refCode}`;
+
+  const _markAsInvited = (state) => {
+    const guest = { ...guestObj, invited: state };
+    markAsInvited(guest);
+  };
 
   const copyToClipboard = () => {
     let txt = `\bSulari 💍 Buwaneka\b\n\n`;
@@ -145,7 +153,9 @@ const ListItemEdit = (props) => {
           </div>
         </div>
         <div
-          className={"list-item-top list-item-top-wrapper-right text-center"}
+          className={
+            "list-item-edit-top list-item-edit-top-wrapper-right text-center"
+          }
         >
           {tableNo !== "" && (
             <>
@@ -155,6 +165,16 @@ const ListItemEdit = (props) => {
               }`}</Typography>
             </>
           )}
+          <br />
+          <Button
+            variant="outline-secondary"
+            onClick={() => _markAsInvited(!invited)}
+          >
+            <Icon
+              icon={"check_circle"}
+              className={invited ? "checked" : "not-checked"}
+            />
+          </Button>
         </div>
       </div>
       <div

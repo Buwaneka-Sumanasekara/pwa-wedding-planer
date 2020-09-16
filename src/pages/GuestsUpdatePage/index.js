@@ -47,14 +47,12 @@ const GuestUpdatePage = () => {
   }, [filterValues]);
 
   const FilterGuestAPI = (showLoading = true) => {
-    console.log("filter values:FilterGuestAPI", filterValues);
     const req = Utils.MakeFilterValuesToReqBody(filterValues);
     if (source_guests && filterValues.length > 0) {
       setLoading(showLoading);
       source_guests
         .filterGuests(req)
         .then((res) => {
-          console.log("res", res);
           setLoading(false);
           if (res.data["data"] !== undefined) {
             setResults(res.data["data"]);
@@ -69,8 +67,25 @@ const GuestUpdatePage = () => {
   };
 
   const onFilterChange = (ar_filter_values) => {
-    console.log("filter changed", ar_filter_values);
     setfilterValues(ar_filter_values);
+  };
+
+  const markAsInvited = (guest) => {
+    if (source_guests !== null) {
+      setLoading(true);
+      source_guests
+        .updateGuest(guest)
+        .then((res) => {
+          const ar = Utils.modifyArray(result, "id", guest);
+          setResults(ar);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   const onInputChange = (txt) => {
@@ -126,6 +141,9 @@ const GuestUpdatePage = () => {
         side={v.side}
         contact1={v.contact1}
         contact2={v.contact2}
+        invited={v.invited}
+        guestObj={v}
+        markAsInvited={(guest) => markAsInvited(guest)}
       />
     );
   };
@@ -144,7 +162,7 @@ const GuestUpdatePage = () => {
         </Row>
         <Row>
           <marquee>
-            <small>{"Generate link to mark as Invited"}</small>
+            <small>{"Mark checked after given the invitation"}</small>
           </marquee>
         </Row>
         {!isLoading && (

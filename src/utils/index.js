@@ -46,9 +46,9 @@ const FilterByArrival = (data = [], type = "") => {
 const FilterByInvited = (data = [], type = "") => {
   const result = data.filter((v) => {
     if (type === Globals.ResultsModes_invited.INVITED) {
-      return v.linkGenerated === true;
+      return v.invited === true;
     } else if (type === Globals.ResultsModes_invited.NOT_INVITED) {
-      return v.linkGenerated === false;
+      return v.invited === false;
     }
     return true;
   });

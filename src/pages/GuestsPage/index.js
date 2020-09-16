@@ -100,8 +100,6 @@ const GuestPage = () => {
 
   const onCountUpdate = (guest) => {
     console.log(`count marked`, guest);
-
-    //:TODO
     if (source_guests !== null) {
       setDisableModal(true);
       source_guests
