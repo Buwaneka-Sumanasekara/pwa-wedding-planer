@@ -40,6 +40,7 @@ const ListItemEdit = (props) => {
     subTitle,
     contact1 = "",
     contact2 = "",
+    address = "",
     tags,
     tableNo,
     inviteMode,
@@ -131,7 +132,7 @@ const ListItemEdit = (props) => {
         </div>
         <div
           className={clsx(
-            "list-item-top list-item-top-wrapper-mid d-flex align-content-between flex-wrap  px-2",
+            "list-item-top list-item-edit-top-wrapper-mid d-flex align-content-between flex-wrap  px-2",
             ""
           )}
         >
@@ -144,6 +145,13 @@ const ListItemEdit = (props) => {
           <Typography Tag={"h3"} className={"w-100"}>
             {`${contact1}  ${contact2 !== "" ? ` / ${contact2}` : ""}`}
           </Typography>
+
+          {address !== "" && (
+            <Typography Tag={"p"} className={"p_address py-2 w-100"}>
+              {address}
+            </Typography>
+          )}
+
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
             {tags.map((v, i) => (
               <Badge key={`${id}tags${i}`} className={"mr-1"} variant="primary">

@@ -141,6 +141,7 @@ const GuestUpdatePage = () => {
         side={v.side}
         contact1={v.contact1}
         contact2={v.contact2}
+        address={v.address}
         invited={v.invited}
         guestObj={v}
         markAsInvited={(guest) => markAsInvited(guest)}
