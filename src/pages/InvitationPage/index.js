@@ -9,10 +9,11 @@
  */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Row, Col, Spinner, Alert } from "react-bootstrap";
+import { Row, Col, Spinner, Alert, Button } from "react-bootstrap";
 import PageTemplate from "../../components/templates/BlankTemplate";
 import Typography from "../../components/atoms/Typography";
 import InvitationBody from "../../components/organisms/InvitationBody";
+import Icon from "../../components/atoms/Icon";
 
 import "./styles.scss";
 
@@ -30,19 +31,26 @@ const InvitationPage = () => {
   const [notFound, setNotFound] = useState(false);
   const [GuestInfo, setGuestInfo] = useState(null);
   const [Invitation, setInvitation] = useState(null);
+  const [isEnableRefresh, setEnableRefresh] = useState(false);
 
   useEffect(() => {
     if (source) {
       setLoading(true);
-      source.getSpecificInvitation({ code: code }).then((res) => {
-        setLoading(false);
-        if (res.data["data"] !== undefined) {
-          setGuestInfo(res.data["data"]);
-          setInvitation(res.data["data"]);
-        } else {
-          setNotFound(true);
-        }
-      });
+      source
+        .getSpecificInvitation({ code: code })
+        .then((res) => {
+          setLoading(false);
+          if (res.data["data"] !== undefined) {
+            setGuestInfo(res.data["data"]);
+            setInvitation(res.data["data"]);
+          } else {
+            setNotFound(true);
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          setEnableRefresh(true);
+        });
     }
   }, []);
 
@@ -59,6 +67,10 @@ const InvitationPage = () => {
           }
         });
     }
+  };
+
+  const _onRefresh = () => {
+    window.location.reload(false);
   };
   const onRequestChange = () => {
     const invObj = Invitation;
@@ -89,6 +101,30 @@ const InvitationPage = () => {
               <div className={"mx-auto w-50 logo"}></div>
               <Spinner animation="border" variant="primary" />
               <Typography Tag={"h2"}>{LoadingMessage}</Typography>
+            </Col>
+          </Row>
+        </div>
+      )}
+
+      {isEnableRefresh && (
+        <div className={"vh-100 wrapper-loading"}>
+          <Row className="row d-flex justify-content-center align-items-center vh-100">
+            <Col md className={"text-center"}>
+              <div className={"mx-auto w-50 logo"}></div>
+
+              <Typography Tag={"h2"}>
+                {
+                  "Something wrong in your invitation. Please retry by clicking this button"
+                }
+              </Typography>
+              <Button
+                variant="outline-secondary"
+                onClick={() => _onRefresh()}
+                size="lg"
+              >
+                <Icon icon={"loop2"} />
+                <Typography Tag={"small"}>{"Refresh"}</Typography>
+              </Button>
             </Col>
           </Row>
         </div>
