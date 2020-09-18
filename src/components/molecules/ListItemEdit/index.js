@@ -73,16 +73,15 @@ const ListItemEdit = (props) => {
       debug: true,
       message: "Press #{key} to copy",
     });
+  };
 
-    // const textField = document.createElement("textarea");
+  const _handleGetDirections = (address) => {
+    const urlencode = encodeURIComponent(address);
 
-    // txt = txt.replace(/\n/g, "\r\n");
-    // textField.innerText = txt;
-
-    // document.body.appendChild(textField);
-    // textField.select();
-    // document.execCommand("copy");
-    // textField.remove();
+    //const url=`https://www.google.com/maps/dir/${urlencode}`;
+    const url = `https://maps.google.com?daddr=${urlencode}`;
+    console.log(url);
+    window.location.href = url;
   };
 
   return (
@@ -147,9 +146,11 @@ const ListItemEdit = (props) => {
           </Typography>
 
           {address !== "" && (
-            <Typography Tag={"p"} className={"p_address py-2 w-100"}>
-              {address}
-            </Typography>
+            <div onClick={() => _handleGetDirections(address)}>
+              <Typography Tag={"p"} className={"p_address py-2 w-100"}>
+                {address}
+              </Typography>
+            </div>
           )}
 
           <div className={"list-item-top-wrapper-mid-bottom w-100 pt-1"}>
