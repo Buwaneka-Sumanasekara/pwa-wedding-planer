@@ -26,8 +26,10 @@ const prodConfig = {
 
 const config = prodConfig;
 
-console.log(`Mode:${process.env.NODE_ENV}`);
-console.log(`System init as #${JSON.stringify(config)}#`);
+if (process.env.NODE_ENV !== "production") {
+  console.log(`Mode:${process.env.NODE_ENV}`);
+  console.log(`System init as #${JSON.stringify(config)}#`);
+}
 
 firebase.initializeApp(config);
 
