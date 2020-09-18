@@ -1,3 +1,12 @@
+/*
+ * File: index.js
+ * File Created: Friday, 18th September 2020 7:37:44 pm
+ * Author: Buwaneka (buwanekasumanasekara@gmail.com)
+ * -----
+ * Last Modified: Friday, 18th September 2020 7:37:46 pm
+ * Modified By: Buwaneka (buwanekasumanasekara@gmail.com>)
+ * --------------------------------------------------------------
+ */
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";

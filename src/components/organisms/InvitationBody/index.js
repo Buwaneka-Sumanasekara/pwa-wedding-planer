@@ -43,7 +43,7 @@ const InvitationBody = (props) => {
       }
     >
       <Container className={"text-center invitation-text-wrapper"}>
-        <Row className={"top-header"}>
+        <Row className={"top-header pt-2"}>
           <Col>
             <Typography Tag={"small"} letterSpacing={1}>
               Together with their parents
@@ -180,14 +180,14 @@ const InvitationBody = (props) => {
 
         {!AlreadMarked && (
           <React.Fragment>
-            <Row className={"px-1"}>
+            <Row className={"py-1"}>
               <Col>
                 <Typography
                   Tag={"small"}
                 >{`Are you expected to join this event?`}</Typography>
               </Col>
             </Row>
-            <Row>
+            <Row className={"pb-2"}>
               <Col>
                 <Button
                   variant="success"
