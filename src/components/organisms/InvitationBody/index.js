@@ -134,7 +134,7 @@ const InvitationBody = (props) => {
               Tag={"small"}
               className={"font-weight-bold"}
             >
-              {"SAMINRO GRAND PALACE"}
+              {"SAMINRO GRAND PALACE. MAKOLA"}
             </Typography>
           </Col>
         </Row>
