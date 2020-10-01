@@ -8,29 +8,87 @@
  * --------------------------------------------------------------
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Jumbotron } from "react-bootstrap";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import PageTemplate from "../../components/templates/BlankTemplate";
-import * as AppActions from "../../redux/app/action";
+import Typography from "../../components/atoms/Typography";
 
+import { database } from "../../constants/Firebase/init-firebase";
+import Utils from "../../utils";
 import "./styles.scss";
 
 const Dashboard = () => {
-  console.log(window.location.origin);
+  const [DashboardData, setDashboardData] = useState({});
 
-  const subscribeForNotifications = () => {};
+  const onDashbaordValueChange = () => {
+    const starCountRef = database.ref("Dashboard");
+    starCountRef.on("value", function (snapshot) {
+      //updateStarCount(postElement, snapshot.val());
+      const v = snapshot.val();
+      console.log(v);
+      setDashboardData(v);
+    });
+  };
+
+  useEffect(() => {
+    onDashbaordValueChange();
+  }, []);
 
   return (
-    <PageTemplate page_name={"home"}>
+    <PageTemplate page_name={"dashboard"}>
       <Container className={" h-100"}>
-        <Row>
+        <Row
+          className={
+            "row d-flex justify-content-center align-items-center vh-100"
+          }
+        >
           <Col className={"col-12"}>
-            <Button onClick={subscribeForNotifications}>
-              {"Subscribe for Notifications"}
-            </Button>
+            <Row>
+              <Col md className={"text-center"}>
+                <h1>{"Guests"}</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col md className={"text-center"}>
+                <h2>
+                  {`${Utils.replaceByDefault(
+                    DashboardData,
+                    "Arrived"
+                  )} / ${Utils.replaceByDefault(DashboardData, "Total")}`}
+                </h2>
+              </Col>
+            </Row>
+            <Row className="py-4">
+              <Col md className={"text-center"}>
+                <p>{`Bride's side`}</p>
+                <h3>
+                  {`${Utils.replaceByDefault(
+                    DashboardData,
+                    "Sulari_Arrived"
+                  )}  / ${Utils.replaceByDefault(
+                    DashboardData,
+                    "Sulari_Total"
+                  )} `}
+                </h3>
+              </Col>
+            </Row>
+            <Row className="py-4">
+              <Col md className={"text-center"}>
+                <p>{`Groom's side`}</p>
+                <h3>
+                  {`${Utils.replaceByDefault(
+                    DashboardData,
+                    "Buwaneka_Arrived"
+                  )}  / ${Utils.replaceByDefault(
+                    DashboardData,
+                    "Buwaneka_Total"
+                  )} `}
+                </h3>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
@@ -42,7 +100,5 @@ const Dashboard = () => {
 const mapStateToProps = (state) => ({});
 
 // Any actions to map to the component?
-const mapDispatchToProps = {
-  subscribeForNotifications: AppActions.subscribeForNotifications,
-};
+const mapDispatchToProps = {};
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -111,6 +111,15 @@ const getTitleCase = (str) => {
     })
     .join(" ");
 };
+
+const replaceByDefault = (v, key, DefaultVal = 0) => {
+  if (v[key] !== undefined && v[key] !== null) {
+    return v[key];
+  } else {
+    return DefaultVal;
+  }
+};
+
 export default {
   FilterByText: FilterByText,
   MakeFilterValuesToReqBody: MakeMakeFilterValuesToReqBody,
@@ -120,4 +129,5 @@ export default {
   getTitleCase: getTitleCase,
   FilterByArrival: FilterByArrival,
   FilterByInvited: FilterByInvited,
+  replaceByDefault: replaceByDefault,
 };
